@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bốc Y Thăng Trầm - Web Game Nhập Vai Thế Giới Mở</title>
+  <meta name="description" content="Hành trình từ nông dân áo vải đến đỉnh cao danh vọng trong thế giới cổ trang mở rộng với engine Pure CSS và Emoji 60FPS.">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- 1. THANH TIÊU ĐỀ TRÊN CÙNG (TOP HEADER) -->
+  <header class="top-header">
+    <div class="brand-section">
+      <div class="brand-icon">📜</div>
+      <div>
+        <h1 class="brand-title">BỐC Y THĂNG TRẦM</h1>
+        <div class="brand-subtitle">Từ Nông Dân Áo Vải Đến Đỉnh Cao Danh Vọng</div>
+      </div>
+    </div>
+
+    <div class="header-status-group">
+      <div class="status-pill" id="val-day">Ngày 1</div>
+      <div class="status-pill" id="val-season">Mùa Xuân</div>
+      <div class="status-pill zone" id="val-zone">Vùng Ven Điền Trang</div>
+      <div class="status-pill silver" id="val-silver">10 💰</div>
+      
+      <div class="ap-container">
+        <div class="ap-header">
+          <span>Thể Lực (AP)</span>
+          <span id="val-ap-text">10 / 10 AP</span>
+        </div>
+        <div class="ap-bar-bg">
+          <div class="ap-bar-fill" id="val-ap-bar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. BỐ CỤC CHÍNH 3 CỘT (MAIN 3-COLUMN LAYOUT) -->
+  <main class="main-layout">
+    
+    <!-- CỘT TRÁI: HỒ SƠ NHÂN VẬT, CHỈ SỐ & BALO KHO ĐỒ -->
+    <aside class="game-panel" id="panel-left">
+      <div class="panel-header">
+        <span class="panel-title">👤 Thân Phận & Năng Lực</span>
+      </div>
+
+      <div class="player-card">
+        <div class="player-avatar">🧙‍♂️</div>
+        <div>
+          <div class="player-info-name" id="val-player-name">Tiêu Diệp</div>
+          <div class="player-info-title" id="val-player-title">Nông Phu Áo Vải</div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">💪 Thể Lực</span>
+          <span class="stat-val" id="stat-str">10</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">🧠 Trí Lực</span>
+          <span class="stat-val" id="stat-int">5</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">🗣️ Khẩu Tài</span>
+          <span class="stat-val" id="stat-cha">5</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">📜 Uy Danh</span>
+          <span class="stat-val" id="stat-rep">0</span>
+        </div>
+      </div>
+
+      <div class="panel-header" style="margin-top: 10px;">
+        <span class="panel-title">🎒 Balo Hành Trang</span>
+      </div>
+
+      <div class="inventory-wrapper">
+        <div class="inventory-list" id="inventory-list">
+          <!-- Render danh sách vật phẩm tự động bằng JS -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- CỘT GIỮA: MÀN HÌNH KHUNG NHÌN CAMERA VIRTUAL VIEWPORT -->
+    <section class="map-view-panel">
+      <div class="map-screen-frame">
+        <div id="map-grid-container">
+          <!-- Render 15x11 ô cố định bằng VirtualMapRenderer -->
+        </div>
+      </div>
+
+      <div class="map-controls-hint">
+        <span>🎮 <b>WASD / Mũi tên</b>: Di chuyển</span>
+        <span>🖱️ <b>Chạm / Click</b>: Tự tìm đường (Tap-to-move)</span>
+        <span>⚡ <b>Space / Enter</b>: Tương tác</span>
+      </div>
+
+      <!-- D-PAD ẢO CHO THIẾT BỊ CẢM ỨNG MOBILE -->
+      <div class="mobile-dpad-container">
+        <div class="dpad-grid">
+          <div></div>
+          <button class="dpad-btn" id="dpad-up">▲</button>
+          <div></div>
+          <button class="dpad-btn" id="dpad-left">◄</button>
+          <button class="dpad-btn" id="dpad-center" style="font-size:13px; font-weight:bold;">OK</button>
+          <button class="dpad-btn" id="dpad-right">►</button>
+          <div></div>
+          <button class="dpad-btn" id="dpad-down">▼</button>
+          <div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CỘT PHẢI: NHẬT KÝ SỰ KIỆN & NÚT HÀNH ĐỘNG -->
+    <aside class="game-panel" id="panel-right">
+      <div class="panel-header">
+        <span class="panel-title">📜 Nhật Ký Hành Trình</span>
+      </div>
+
+      <div class="log-container" id="log-container">
+        <!-- Render các dòng sự kiện mới nhất -->
+      </div>
+
+      <div class="action-buttons-group">
+        <button class="btn-primary-action" id="btn-action-sleep">🛏️ Đi Ngủ (Hồi Phục AP & Qua Ngày)</button>
+        <button class="btn-secondary-action" id="btn-action-reset">🔄 Bắt Đầu Lại Cuộc Đời Mới</button>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- 3. MODAL HỘI THOẠI & GIAO THƯƠNG NPC -->
+  <div class="modal-overlay" id="modal-npc">
+    <div class="modal-dialog-box">
+      <div class="modal-header">
+        <div class="modal-npc-avatar">👤</div>
+        <div class="modal-title">Hội Thoại</div>
+      </div>
+      <div class="modal-body">
+        <!-- Nội dung hội thoại & buôn bán do JS render -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MODAL THÔNG TIN & XÁC NHẬN CHUNG -->
+  <div class="modal-overlay" id="modal-generic">
+    <div class="modal-dialog-box">
+      <div class="modal-header">
+        <div class="modal-title">Thông Báo</div>
+      </div>
+      <div class="modal-body">
+        <!-- Nội dung do JS render -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Entry Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
