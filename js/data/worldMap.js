@@ -27,7 +27,7 @@ export function createWorldMapData() {
   const R = MAP_CONFIG.ROWS;
   const C = MAP_CONFIG.COLS;
 
-  // 1. Khởi tạo ma trận trống mặc định toàn bộ là đồng cỏ
+  // 1. Khởi tạo ma trận trống mặc định toàn bộ là đồng cỏ hoa dại
   const grid = [];
   for (let r = 0; r < R; r++) {
     const row = [];
@@ -37,7 +37,7 @@ export function createWorldMapData() {
         c,
         type: 'grass',
         icon: '',
-        name: 'Đồng Cỏ',
+        name: 'Đồng Cỏ Hoa Dại',
         solid: false,
         css: 'tile-grass',
         interact: null,
@@ -56,7 +56,7 @@ export function createWorldMapData() {
   // 3. TRỤC ĐƯỜNG THẦN ĐẠO XUYÊN SUỐT NAM - BẮC (Cột 31, 32)
   fillAreaChar(grid, 1, 31, 18, 32, 'M', 'PALACE'); // Cẩm thạch hoàng cung
   fillAreaChar(grid, 19, 31, 48, 32, '.', 'MARKET'); // Đường đá kinh kỳ
-  fillAreaChar(grid, 49, 31, 62, 32, ',', 'SUBURB'); // Đường đất thôn quê
+  fillAreaChar(grid, 49, 31, 62, 32, ',', 'SUBURB'); // Đường đất có vệt xe
 
   // =========================================================================
   // PHÂN KHU 4: QUẦN THỂ TỬ CẤM THÀNH HOÀNG CUNG (Rows 1..18)
@@ -67,10 +67,10 @@ export function createWorldMapData() {
   fillAreaChar(grid, 1, 8, 18, 8, 'P', 'PALACE');
   fillAreaChar(grid, 1, 55, 18, 55, 'P', 'PALACE');
 
-  // Cổng Ngọ Môn cấm vệ
+  // Cổng Ngọ Môn cấm vệ (Lầu Ngũ Phụng)
   fillAreaChar(grid, 18, 31, 18, 32, 'N', 'PALACE');
 
-  // Ngự Hoa Viên & Kỳ hoa cổ thụ
+  // Ngự Hoa Viên & Kỳ hoa cổ thụ nở hoa hồng phấn
   for (let r = 2; r <= 5; r++) {
     for (let c = 12; c <= 51; c++) {
       if ((r + c) % 4 === 0 && !(c >= 28 && c <= 35)) {
@@ -78,7 +78,7 @@ export function createWorldMapData() {
       }
     }
   }
-  // 2 Hồ Sen Ngọc Ngự Hoa Viên
+  // 2 Hồ Sen Ngọc Hậu Cung
   fillAreaChar(grid, 3, 16, 4, 22, 'L', 'PALACE');
   fillAreaChar(grid, 3, 41, 4, 47, 'L', 'PALACE');
 
@@ -89,10 +89,16 @@ export function createWorldMapData() {
   fillAreaChar(grid, 11, 16, 15, 47, 'Z', 'PALACE');
   fillAreaChar(grid, 11, 31, 15, 32, 'M', 'PALACE');
 
+  // Các hàng Bia Phẩm Trật Quan Viên đứng chầu (Tả ban văn thần & Hữu ban võ tướng)
+  fillAreaChar(grid, 12, 27, 14, 27, 'Q', 'PALACE');
+  fillAreaChar(grid, 12, 29, 14, 29, 'Q', 'PALACE');
+  fillAreaChar(grid, 12, 34, 14, 34, 'Q', 'PALACE');
+  fillAreaChar(grid, 12, 36, 14, 36, 'Q', 'PALACE');
+
   // Sông Kim Thủy nhân tạo
   fillAreaChar(grid, 16, 12, 16, 51, '~', 'PALACE');
 
-  // 5 Cây Cầu Đá Kim Thủy
+  // 5 Cây Cầu Đá Kim Thủy lan can chạm rồng
   [20, 26, 31, 32, 37, 43].forEach(col => {
     fillAreaChar(grid, 16, col, 16, col, '=', 'PALACE');
   });

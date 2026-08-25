@@ -1,309 +1,456 @@
 /* =========================================================
-   PURE CSS TILE TEXTURES & PATTERNS (BỐC Y THĂNG TRẦM)
-   Tất cả địa hình & công trình vẽ 100% bằng CSS, không dùng ảnh
+   PURE CSS TILE TEXTURES & DETAILED ORIENTAL ART (BỐC Y THĂNG TRẦM)
+   Tất cả chi tiết: Mái ngói cong, lầu ngũ phụng, long bệ đá,
+   sạp chợ lồng đèn, vệt bánh xe, bia phẩm trật... vẽ 100% bằng CSS!
    ========================================================= */
 
-/* --- 1. ĐỊA HÌNH TỰ NHIÊN (CỎ, ĐƯỜNG ĐẤT, ĐƯỜNG ĐÁ) --- */
+/* =========================================================
+   1. ĐỊA HÌNH TỰ NHIÊN, CỎ CÂY & ĐƯỜNG ĐI CHI TIẾT
+   ========================================================= */
 
-/* Bãi cỏ đồng quê mềm mại */
+/* Bãi cỏ đồng quê có hoa dại và bụi cỏ tự nhiên */
 .tile-grass {
-  background-color: #1e3514;
+  background-color: #1a3010;
   background-image: 
-    radial-gradient(circle at 30% 30%, #29471b 15%, transparent 16%),
-    radial-gradient(circle at 70% 70%, #172a0f 20%, transparent 21%),
-    linear-gradient(45deg, rgba(46, 80, 30, 0.3) 25%, transparent 25%, transparent 75%, rgba(46, 80, 30, 0.3) 75%);
-  background-size: 16px 16px, 20px 20px, 8px 8px;
+    radial-gradient(circle at 20% 30%, #ef4444 1px, transparent 1.5px),
+    radial-gradient(circle at 80% 25%, #facc15 1.2px, transparent 1.8px),
+    radial-gradient(circle at 45% 75%, #ffffff 1px, transparent 1.5px),
+    radial-gradient(circle at 70% 80%, #3b82f6 1px, transparent 1.5px),
+    radial-gradient(circle at 35% 45%, #284c1a 18%, transparent 19%),
+    radial-gradient(circle at 75% 65%, #14250c 22%, transparent 23%),
+    linear-gradient(45deg, rgba(46, 80, 30, 0.4) 25%, transparent 25%, transparent 75%, rgba(46, 80, 30, 0.4) 75%);
+  background-size: 52px 52px, 52px 52px, 52px 52px, 52px 52px, 26px 26px, 26px 26px, 8px 8px;
 }
 
-/* Đường đất đỏ nông thôn */
+/* Đường đất đỏ có vệt bánh xe thồ (Cart tracks) & sạn đá */
 .tile-road-dirt {
-  background-color: #593f25;
+  background-color: #5a3d22;
   background-image: 
-    radial-gradient(circle at 20% 40%, #442f1a 10%, transparent 12%),
-    radial-gradient(circle at 75% 60%, #6d4f30 15%, transparent 17%),
-    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.04) 0px, rgba(0, 0, 0, 0.04) 2px, transparent 2px, transparent 6px);
-  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.4);
+    linear-gradient(90deg, transparent 12px, rgba(40, 26, 13, 0.5) 13px, rgba(40, 26, 13, 0.5) 17px, transparent 18px, transparent 34px, rgba(40, 26, 13, 0.5) 35px, rgba(40, 26, 13, 0.5) 39px, transparent 40px),
+    radial-gradient(circle at 30% 20%, #7c5836 2px, transparent 3px),
+    radial-gradient(circle at 70% 80%, #3e2814 2px, transparent 3px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 3px, transparent 3px, transparent 8px);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  border-left: 1px dashed rgba(26, 48, 16, 0.5);
+  border-right: 1px dashed rgba(26, 48, 16, 0.5);
 }
 
-/* Đường lát đá hoa cương đô thành */
+/* Đường lát đá phiến kinh kỳ có mạch vữa rêu phong */
 .tile-road-stone {
-  background-color: #3b4554;
+  background-color: #384252;
   background-image:
-    linear-gradient(0deg, #1e242d 2px, transparent 2px),
-    linear-gradient(90deg, #1e242d 2px, transparent 2px),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 16px 16px, 16px 16px, 8px 8px, 8px 8px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    linear-gradient(0deg, #18202c 2px, transparent 2px),
+    linear-gradient(90deg, #18202c 2px, transparent 2px),
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.15) 0%, transparent 50%);
+  background-size: 26px 26px, 26px 26px, 26px 26px, 26px 26px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Đại lộ cẩm thạch Thần Đạo Hoàng Cung */
+/* Đại lộ Thần Đạo Cẩm Thạch hoa văn Long Vân */
 .tile-marble {
   background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-    repeating-linear-gradient(45deg, #cbd5e1 0px, #cbd5e1 12px, #94a3b8 12px, #94a3b8 13px),
-    repeating-linear-gradient(-45deg, #e2e8f0 0px, #e2e8f0 12px, #64748b 12px, #64748b 13px);
-  border: 1px solid #e5c07b;
-  box-shadow: inset 0 0 10px rgba(229, 192, 123, 0.35);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, #e2e8f0 0px, #e2e8f0 13px, #cbd5e1 13px, #cbd5e1 14px, #94a3b8 14px, #94a3b8 15px),
+    repeating-linear-gradient(-45deg, #f8fafc 0px, #f8fafc 13px, #cbd5e1 13px, #cbd5e1 14px, #64748b 14px, #64748b 15px);
+  border: 1px solid #d97706;
+  box-shadow: inset 0 0 10px rgba(245, 158, 11, 0.4), 0 0 4px rgba(255, 255, 255, 0.2);
 }
 
-/* Đại quảng trường Triều Nghi */
+/* Đại Quảng Trường Triều Nghi có khắc vạch ô đứng chầu */
 .tile-plaza {
-  background-color: #334155;
+  background-color: #2e3846;
   background-image: 
-    radial-gradient(circle at center, #475569 25%, transparent 26%),
-    linear-gradient(0deg, #1e293b 2px, transparent 2px),
-    linear-gradient(90deg, #1e293b 2px, transparent 2px);
-  background-size: 26px 26px, 26px 26px, 26px 26px;
-  border: 1px solid rgba(229, 192, 123, 0.2);
+    linear-gradient(0deg, #171d26 2px, transparent 2px),
+    linear-gradient(90deg, #171d26 2px, transparent 2px),
+    radial-gradient(circle at center, #3d4a5d 30%, transparent 31%);
+  background-size: 52px 52px, 52px 52px, 52px 52px;
+  border: 1px solid rgba(229, 192, 123, 0.25);
+  position: relative;
 }
 
-/* --- 2. THỦY HỆ & CẦU ĐÁ (NƯỚC, HỒ SEN, CẦU) --- */
+/* Bia đá phân định Phẩm trật triều ban trên quảng trường */
+.tile-court-rank {
+  background: #334155;
+  border: 1px solid #e5c07b;
+  position: relative;
+}
+.tile-court-rank::after {
+  content: '📜';
+  font-size: 16px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
 
-/* Mặt nước sông gợn sóng chuyển động */
+/* --- 2. THỦY HỆ & 5 CÂY CẦU KIM THỦY --- */
+
+/* Mặt nước sông gợn sóng đa tầng */
 .tile-water {
-  background: linear-gradient(180deg, #0284c7 0%, #0369a1 50%, #075985 100%);
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 40%, #075985 80%, #0c4a6e 100%);
   background-size: 100% 200%;
-  animation: waterRipple 4s ease infinite alternate;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+  animation: waterShimmer 3s ease infinite alternate;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.7);
   position: relative;
   overflow: hidden;
 }
 
-.tile-water::after {
+.tile-water::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.12) 0px, rgba(255, 255, 255, 0.12) 4px, transparent 4px, transparent 12px);
-  animation: waveSlide 3s linear infinite;
+  top: 0; left: -50%; right: -50%; bottom: 0;
+  background: repeating-linear-gradient(60deg, transparent 0px, transparent 8px, rgba(255, 255, 255, 0.15) 8px, rgba(255, 255, 255, 0.15) 12px);
+  animation: waveMotion 4s linear infinite;
 }
 
 /* Hồ sen ngọc Ngự Hoa Viên */
 .tile-lotus {
-  background: radial-gradient(circle at center, #0e7490 0%, #155e75 60%, #083344 100%);
-  border: 1px solid #22d3ee;
-  box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.3);
-}
-
-/* Cầu đá cẩm thạch Hoàng Cung (5 cầu Kim Thủy) */
-.tile-bridge-stone {
-  background: linear-gradient(180deg, #f8fafc 0%, #cbd5e1 50%, #94a3b8 100%);
-  border-top: 3px solid #fde047;
-  border-bottom: 3px solid #b45309;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  background: radial-gradient(circle at center, #0891b2 0%, #0e7490 50%, #155e75 100%);
+  border: 1px solid #67e8f9;
+  box-shadow: inset 0 0 14px rgba(34, 211, 238, 0.4);
   position: relative;
 }
+.tile-lotus::after {
+  content: '🪷';
+  font-size: 20px;
+  filter: drop-shadow(0 0 6px rgba(244, 114, 182, 0.8));
+  animation: lotusBreathe 3s ease-in-out infinite alternate;
+}
 
+/* Cầu đá cẩm thạch Kim Thủy chạm trổ lan can búp sen */
+.tile-bridge-stone {
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 40%, #94a3b8 100%);
+  border-top: 4px solid #fef08a;
+  border-bottom: 4px solid #92400e;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
 .tile-bridge-stone::before {
   content: '';
   position: absolute;
-  left: 0; right: 0; top: 2px; bottom: 2px;
-  background: repeating-linear-gradient(90deg, transparent 0px, transparent 8px, rgba(0, 0, 0, 0.15) 8px, rgba(0, 0, 0, 0.15) 10px);
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: repeating-linear-gradient(90deg, transparent 0px, transparent 10px, rgba(0, 0, 0, 0.18) 10px, rgba(0, 0, 0, 0.18) 13px);
+}
+.tile-bridge-stone::after {
+  content: '🏛️';
+  position: absolute;
+  font-size: 14px;
+  top: -4px;
+  right: 2px;
+  opacity: 0.6;
 }
 
-/* Cầu gỗ ven thôn */
+/* Cầu gỗ thôn quê */
 .tile-bridge {
   background: #78350f;
-  background-image: repeating-linear-gradient(90deg, #451a03 0px, #451a03 3px, #78350f 3px, #78350f 10px, #92400e 10px, #92400e 11px);
+  background-image: repeating-linear-gradient(90deg, #451a03 0px, #451a03 4px, #78350f 4px, #78350f 12px, #92400e 12px, #92400e 14px);
   border-top: 3px solid #b45309;
   border-bottom: 3px solid #451a03;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* --- 3. TƯỜNG THÀNH & CỔNG THÀNH (WALLS & GATES) --- */
+/* =========================================================
+   3. TƯỜNG THÀNH, CỔNG NGỌ MÔN & THÁP CANH LẦU NGŨ PHỤNG
+   ========================================================= */
 
-/* Tường thành đá xám kiên cố (Vân gạch 3D so le) */
+/* Tường thành đá xám (Mạch vữa 3D nổi khối) */
 .tile-wall {
-  background-color: #334155;
+  background-color: #2a3441;
   background-image:
-    linear-gradient(335deg, #1e293b 6px, transparent 6px),
-    linear-gradient(155deg, #475569 6px, transparent 6px),
-    linear-gradient(335deg, #1e293b 6px, transparent 6px),
-    linear-gradient(155deg, #475569 6px, transparent 6px);
-  background-size: 24px 24px;
-  background-position: 0px 2px, 2px 14px, 12px 14px, 14px 2px;
+    linear-gradient(335deg, #18202a 6px, transparent 6px),
+    linear-gradient(155deg, #3d4a5c 6px, transparent 6px),
+    linear-gradient(335deg, #18202a 6px, transparent 6px),
+    linear-gradient(155deg, #3d4a5c 6px, transparent 6px);
+  background-size: 26px 26px;
+  background-position: 0px 2px, 2px 15px, 13px 15px, 15px 2px;
   border-top: 3px solid #64748b;
-  border-bottom: 3px solid #0f172a;
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7);
+  border-bottom: 4px solid #0f172a;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 4px 6px rgba(0,0,0,0.5);
 }
 
-/* Tường thành Cấm Cung sơn son dát vàng */
+/* Tường Cấm Cung Sơn Son Dát Vàng */
 .tile-wall-palace {
-  background-color: #881337;
+  background-color: #7f1d1d;
   background-image:
-    linear-gradient(335deg, #4c0519 6px, transparent 6px),
-    linear-gradient(155deg, #be123c 6px, transparent 6px),
-    linear-gradient(335deg, #4c0519 6px, transparent 6px),
-    linear-gradient(155deg, #be123c 6px, transparent 6px);
-  background-size: 24px 24px;
-  background-position: 0px 2px, 2px 14px, 12px 14px, 14px 2px;
-  border-top: 3px solid #fbbf24;
-  border-bottom: 3px solid #4c0519;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 6px rgba(225, 29, 72, 0.3);
+    linear-gradient(335deg, #450a0a 6px, transparent 6px),
+    linear-gradient(155deg, #b91c1c 6px, transparent 6px),
+    linear-gradient(335deg, #450a0a 6px, transparent 6px),
+    linear-gradient(155deg, #b91c1c 6px, transparent 6px);
+  background-size: 26px 26px;
+  background-position: 0px 2px, 2px 15px, 13px 15px, 15px 2px;
+  border-top: 3px solid #fde047;
+  border-bottom: 4px solid #450a0a;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9), 0 0 8px rgba(225, 29, 72, 0.4);
+}
+
+/* Cổng Ngọ Môn Hoàng Cung (Lầu Ngũ Phụng sơn son thếp vàng) */
+.tile-palace-gate {
+  background: linear-gradient(180deg, #facc15 0%, #b45309 25%, #881337 60%, #4c0519 100%);
+  border: 2px solid #fef08a;
+  box-shadow: 0 0 18px rgba(251, 191, 36, 0.8), inset 0 0 8px rgba(253, 224, 71, 0.5);
+  position: relative;
+}
+.tile-palace-gate::before {
+  content: '⛩️';
+  font-size: 24px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.9));
 }
 
 /* Cổng thành Chu Tước */
 .tile-gate {
-  background: linear-gradient(180deg, #991b1b 0%, #450a0a 100%);
+  background: linear-gradient(180deg, #b45309 0%, #7f1d1d 50%, #450a0a 100%);
   border: 2px solid #fbbf24;
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+.tile-gate::before {
+  content: '🚪';
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
 }
 
-/* Cổng Ngọ Môn Hoàng Cung */
-.tile-palace-gate {
-  background: linear-gradient(180deg, #e11d48 0%, #881337 50%, #4c0519 100%);
-  border: 2px solid #fde047;
-  box-shadow: 0 0 12px rgba(244, 63, 94, 0.6), inset 0 0 8px rgba(253, 224, 71, 0.3);
+/* =========================================================
+   4. KIẾN TRÚC MÁI NGÓI & NHÀ DÂN, PHỦ ĐỆ, SẠP CHỢ CHI TIẾT
+   ========================================================= */
+
+/* Sạp hàng chợ lớn (Mái bạt sọc đỏ vàng + Lồng đèn + Thùng gỗ bày hàng) */
+.tile-market-stall {
+  background: linear-gradient(180deg, #ea580c 0%, #c2410c 35%, #78350f 40%, #451a03 100%);
+  background-image: 
+    repeating-linear-gradient(90deg, #ea580c 0px, #ea580c 6px, #fef08a 6px, #fef08a 12px),
+    linear-gradient(180deg, transparent 40%, #451a03 40%, #78350f 100%);
+  border: 1px solid #b45309;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+.tile-market-stall::after {
+  content: '🏮';
+  position: absolute;
+  top: -2px;
+  right: 1px;
+  font-size: 16px;
+  filter: drop-shadow(0 0 6px #ea580c);
+  animation: lanternSway 2s ease-in-out infinite alternate;
 }
 
-/* --- 4. KIẾN TRÚC MÁI NGÓI & NHÀ CỬA (HOUSES & MANSIONS) --- */
-
-/* Mái ngói nhà dân phố xá (Ngói âm dương sọc cổ trang) */
+/* Mái ngói âm dương nhà dân phố xá (Cong đầu đao + Họa tiết ngói) */
 .tile-houses {
-  background: #311042;
+  background: #250b33;
   background-image: 
-    repeating-linear-gradient(180deg, #581c87 0px, #581c87 4px, #3b0764 4px, #3b0764 8px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, transparent 20%, transparent 80%, rgba(0, 0, 0, 0.4) 100%);
-  border-top: 3px solid #a855f7;
-  border-bottom: 3px solid #1e0533;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    repeating-linear-gradient(180deg, #4c1d95 0px, #4c1d95 4px, #2e1065 4px, #2e1065 8px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.6) 100%);
+  border-top: 4px solid #c084fc;
+  border-bottom: 4px solid #170424;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+.tile-houses::before {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 12px;
+  background: #451a03;
+  border: 1px solid #b45309;
+  border-radius: 2px 2px 0 0;
 }
 
-/* Vương phủ & Phủ đệ Đại thần */
+/* Phủ đệ Đại Thần / Vương Phủ (Ngói lưu ly hoàng gia) */
 .tile-mansion {
-  background: #4a0418;
+  background: #3b0213;
   background-image: 
-    repeating-linear-gradient(180deg, #9f1239 0px, #9f1239 5px, #4c0519 5px, #4c0519 10px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.5) 100%);
-  border-top: 3px solid #facc15;
-  border-bottom: 3px solid #2a020d;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+    repeating-linear-gradient(180deg, #be123c 0px, #be123c 5px, #881337 5px, #881337 10px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.6) 100%);
+  border-top: 4px solid #facc15;
+  border-bottom: 4px solid #1f010a;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(225, 29, 72, 0.3);
+  position: relative;
+}
+.tile-mansion::after {
+  content: '🏯';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
-/* Mái tranh nhà quê Tiêu Diệp */
+/* Nhà tranh Tiêu Diệp nông thôn */
 .tile-house {
-  background: #54320e;
-  background-image: repeating-linear-gradient(45deg, #78350f 0px, #78350f 3px, #451a03 3px, #451a03 6px);
-  border-top: 3px solid #b45309;
-  border-bottom: 3px solid #291002;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: #452408;
+  background-image: repeating-linear-gradient(45deg, #78350f 0px, #78350f 4px, #3b1907 4px, #3b1907 8px);
+  border-top: 4px solid #d97706;
+  border-bottom: 4px solid #1c0a02;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+.tile-house::after {
+  content: '🛖';
+  font-size: 22px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
 }
 
-/* --- 5. NÔNG NGHIỆP & TÀI NGUYÊN (FARMLAND, TREES, MINING) --- */
-
-/* Luống ruộng cày xới củ cải */
-.tile-farmland {
-  background-color: #3b1907;
-  background-image: 
-    repeating-linear-gradient(0deg, #4d230b 0px, #4d230b 6px, #260f04 6px, #260f04 12px),
-    radial-gradient(circle at center, rgba(229, 192, 123, 0.1) 0%, transparent 80%);
-  border: 1px dashed rgba(229, 192, 123, 0.35);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
-}
-
-/* Tán Rừng Thông Cổ Thụ (Vòm cây rậm rạp 3D) */
-.tile-tree {
-  background: radial-gradient(circle at 40% 40%, #166534 0%, #14532d 40%, #052e16 85%, #021a0c 100%);
-  border-radius: 50%;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.8), inset 0 0 8px rgba(22, 101, 52, 0.5);
-  margin: 2px;
-}
-
-/* Cây cảnh Ngự Hoa Viên */
-.tile-tree-garden {
-  background: radial-gradient(circle at 40% 40%, #22c55e 0%, #15803d 45%, #064e3b 85%, #022c22 100%);
-  border-radius: 50%;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7), inset 0 0 6px rgba(74, 222, 128, 0.4);
-  margin: 2px;
-}
-
-/* Dãy núi đá bao bọc bản đồ */
-.tile-mountain {
-  background: linear-gradient(135deg, #334155 0%, #1e293b 50%, #0f172a 100%);
-  box-shadow: inset 0 0 10px #000;
-  border: 1px solid #1e293b;
-}
-
-/* --- 6. CÁC CÔNG TRÌNH ĐẶC THÙ (NGAI VÀNG, SÂN NHA MÔN, SẠP BUÔN) --- */
-
-/* Đài đá tam cấp Điện Thái Hòa */
-.tile-throne-dais {
-  background: radial-gradient(circle, #78350f 0%, #451a03 100%);
-  border: 2px solid #e5c07b;
-  box-shadow: inset 0 0 12px rgba(229, 192, 123, 0.4);
-}
-
-/* Bệ ngai vàng cửu long */
-.tile-throne {
-  background: radial-gradient(circle at center, #d97706 0%, #b45309 50%, #78350f 100%);
-  border: 2px solid #fef08a;
-  animation: throneGlow 2s infinite alternate ease-in-out;
-}
+/* =========================================================
+   5. HUYỆN ĐƯỜNG, NHA MÔN, TRỐNG KÊU OAN & NGỤC GIAM
+   ========================================================= */
 
 /* Sân thăng đường Nha Môn */
 .tile-yamen-court {
-  background-color: #334155;
+  background-color: #2c3644;
   background-image: 
-    linear-gradient(0deg, #1e293b 1px, transparent 1px),
-    linear-gradient(90deg, #1e293b 1px, transparent 1px);
-  background-size: 14px 14px;
+    linear-gradient(0deg, #18202c 1.5px, transparent 1.5px),
+    linear-gradient(90deg, #18202c 1.5px, transparent 1.5px);
+  background-size: 17px 17px;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
-/* Trống Kêu Oan */
+/* Trống Kêu Oan Đăng Văn Cổ trên giá gỗ sơn son */
 .tile-drum {
-  background: radial-gradient(circle at center, #991b1b 0%, #450a0a 100%);
-  border: 2px solid #f59e0b;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  background: radial-gradient(circle at center, #dc2626 0%, #991b1b 50%, #450a0a 100%);
+  border: 3px solid #facc15;
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.8), 0 0 10px rgba(220, 38, 38, 0.6);
+  position: relative;
+}
+.tile-drum::after {
+  content: '🥁';
+  font-size: 22px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
 }
 
-/* Bàn Công Án */
+/* Bàn Công Án Tri Huyện (Gỗ gụ, khăn điều đỏ, ống thẻ bài) */
 .tile-court {
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  border: 2px solid #94a3b8;
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(180deg, #991b1b 0%, #450a0a 60%, #1c1917 100%);
+  border: 2px solid #fde047;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+.tile-court::after {
+  content: '📜';
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
 }
 
-/* Ngục giam đại lao */
+/* Cửa Ngục Giam Đại Lao (Chấn song sắt rỉ sét) */
 .tile-prison {
   background: #09090b;
-  background-image: repeating-linear-gradient(90deg, transparent 0px, transparent 6px, #3f3f46 6px, #3f3f46 8px);
+  background-image: 
+    repeating-linear-gradient(90deg, transparent 0px, transparent 6px, #52525b 6px, #52525b 9px),
+    linear-gradient(180deg, rgba(234, 179, 8, 0.1) 0%, transparent 40%);
   border: 2px solid #27272a;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.95);
+  position: relative;
+}
+.tile-prison::after {
+  content: '⛓️';
+  font-size: 20px;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
 }
 
-/* Sạp hàng chợ lớn (Mái bạt sọc đỏ cam) */
-.tile-market-stall {
-  background: repeating-linear-gradient(90deg, #ea580c 0px, #ea580c 6px, #fffbeb 6px, #fffbeb 12px);
-  border-top: 2px solid #c2410c;
-  border-bottom: 2px solid #7c2d12;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+/* =========================================================
+   6. ĐIỆN THÁI HÒA & BỆ NGAI VÀNG CHÍN RỒNG (TỬ CẤM THÀNH)
+   ========================================================= */
+
+/* Bệ đá tam cấp Điện Thái Hòa (Long Bệ cuộn mây) */
+.tile-throne-dais {
+  background: radial-gradient(circle, #b45309 0%, #78350f 60%, #451a03 100%);
+  border: 2px solid #fde047;
+  box-shadow: inset 0 0 16px rgba(253, 224, 71, 0.5), 0 8px 18px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+.tile-throne-dais::before {
+  content: '🏛️';
+  font-size: 16px;
+  opacity: 0.5;
 }
 
-/* Giếng nước thôn quê */
-.tile-well {
-  background: radial-gradient(circle at center, #0284c7 25%, #1e293b 26%, #0f172a 70%);
-  border: 2px solid #475569;
+/* Ngai Vàng Cửu Long (Phát kim quang rực rỡ) */
+.tile-throne {
+  background: radial-gradient(circle at center, #fbbf24 0%, #d97706 40%, #78350f 100%);
+  border: 3px solid #fef08a;
+  border-radius: 8px;
+  animation: imperialRadiance 2s infinite alternate ease-in-out;
+  position: relative;
+}
+.tile-throne::after {
+  content: '👑';
+  font-size: 26px;
+  filter: drop-shadow(0 0 12px #fde047) drop-shadow(0 4px 6px rgba(0,0,0,0.9));
+}
+
+/* =========================================================
+   7. CÂY CỔ THỤ, RUỘNG ĐỒNG & GIẾNG NƯỚC
+   ========================================================= */
+
+/* Tán Rừng Thông Cổ Thụ 3D */
+.tile-tree {
+  background: radial-gradient(circle at 35% 35%, #15803d 0%, #166534 35%, #052e16 80%, #011709 100%);
   border-radius: 50%;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.85), inset 0 0 10px rgba(74, 222, 128, 0.3);
+  margin: 1px;
 }
 
-/* Ô NPC đứng giao lưu */
-.tile-npc-spot {
-  background: radial-gradient(circle, #581c87 0%, #2e1065 100%);
-  border: 1px solid rgba(229, 192, 123, 0.4);
+/* Kỳ Hoa Cổ Thụ Ngự Hoa Viên (Cây nở hoa hồng phấn / đào ngự) */
+.tile-tree-garden {
+  background: radial-gradient(circle at 35% 35%, #f472b6 0%, #db2777 30%, #15803d 60%, #064e3b 100%);
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8), inset 0 0 8px rgba(244, 114, 182, 0.6);
+  margin: 1px;
 }
 
-/* --- ANIMATIONS --- */
-@keyframes waterRipple {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 0% 100%; }
+/* Luống ruộng cày xới củ cải tơi xốp */
+.tile-farmland {
+  background-color: #2e1405;
+  background-image: 
+    repeating-linear-gradient(0deg, #421d07 0px, #421d07 7px, #1a0b03 7px, #1a0b03 14px),
+    radial-gradient(circle at center, rgba(229, 192, 123, 0.12) 0%, transparent 80%);
+  border: 1px dashed rgba(229, 192, 123, 0.4);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7);
 }
 
-@keyframes waveSlide {
+/* Giếng nước cổ chạm đá */
+.tile-well {
+  background: radial-gradient(circle at center, #0284c7 20%, #1e293b 22%, #0f172a 65%, #334155 70%);
+  border: 3px solid #64748b;
+  border-radius: 50%;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+.tile-well::after {
+  content: '🪣';
+  font-size: 16px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+
+/* Dãy núi đá bao bọc */
+.tile-mountain {
+  background: linear-gradient(135deg, #475569 0%, #1e293b 45%, #090d14 100%);
+  border: 1px solid #1e293b;
+  box-shadow: inset 0 0 12px #000;
+}
+
+/* --- ANIMATIONS CHI TIẾT --- */
+@keyframes lanternSway {
+  0% { transform: rotate(-6deg); }
+  100% { transform: rotate(6deg); }
+}
+
+@keyframes imperialRadiance {
+  0% { box-shadow: 0 0 10px rgba(254, 240, 138, 0.5), inset 0 0 10px rgba(251, 191, 36, 0.3); }
+  100% { box-shadow: 0 0 26px rgba(254, 240, 138, 1), inset 0 0 20px rgba(251, 191, 36, 0.8); }
+}
+
+@keyframes lotusBreathe {
+  0% { transform: scale(0.92); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes waveMotion {
   0% { transform: translateX(0); }
-  100% { transform: translateX(12px); }
-}
-
-@keyframes throneGlow {
-  0% { box-shadow: 0 0 8px rgba(254, 240, 138, 0.4); }
-  100% { box-shadow: 0 0 22px rgba(254, 240, 138, 0.9); }
+  100% { transform: translateX(20px); }
 }

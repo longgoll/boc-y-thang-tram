@@ -1,5 +1,5 @@
 // =========================================================
-// THƯ VIỆN PREFAB & ASCII CHUNK BLUEPRINT SYSTEM
+// THƯ VIỆN PREFAB & ASCII CHUNK BLUEPRINT SYSTEM (NÂNG CẤP CHI TIẾT)
 // Cho phép thiết kế và tái sử dụng công trình cực kỳ trực quan
 // =========================================================
 
@@ -11,9 +11,10 @@ export const TILE_LEGEND = {
   '.': { type: 'road_stone', icon: '', name: 'Đường Lát Đá Đô Thành', solid: false, css: 'tile-road-stone' },
   'M': { type: 'road_marble', icon: '', name: 'Đại Lộ Cẩm Thạch Hoàng Cung', solid: false, css: 'tile-marble' },
   'Z': { type: 'plaza_stone', icon: '', name: 'Đại Quảng Trường Triều Nghi', solid: false, css: 'tile-plaza' },
+  'Q': { type: 'court_rank', icon: '', name: 'Bia Phẩm Trật Triều Ban', solid: false, css: 'tile-court-rank', interact: { type: 'court_rank_info', prompt: '📜 [Bia Phẩm Trật] Nơi các quan viên cửu phẩm đứng túc trực chầu vua.' } },
   '~': { type: 'water', icon: '', name: 'Dòng Sông / Hào Nước', solid: true, css: 'tile-water' },
-  'L': { type: 'water_lotus', icon: '🪷', name: 'Hồ Sen Ngọc Hậu Cung', solid: true, css: 'tile-lotus', interact: { type: 'lotus_pond' } },
-  '=': { type: 'bridge_stone', icon: '', name: 'Cầu Đá Cẩm Thạch', solid: false, css: 'tile-bridge-stone', interact: { type: 'bridge_info' } },
+  'L': { type: 'water_lotus', icon: '', name: 'Hồ Sen Ngọc Hậu Cung', solid: true, css: 'tile-lotus', interact: { type: 'lotus_pond' } },
+  '=': { type: 'bridge_stone', icon: '', name: 'Cầu Đá Cẩm Thạch Kim Thủy', solid: false, css: 'tile-bridge-stone', interact: { type: 'bridge_info' } },
   '-': { type: 'bridge_wood', icon: '', name: 'Cầu Thiên Lý', solid: false, css: 'tile-bridge', interact: { type: 'bridge_info' } },
   '^': { type: 'mountain', icon: '', name: 'Dãy Núi Thập Vạn', solid: true, css: 'tile-mountain' },
   'T': { type: 'tree', icon: '', name: 'Rừng Thông Cổ Thụ', solid: true, css: 'tile-tree' },
@@ -22,8 +23,8 @@ export const TILE_LEGEND = {
   // --- Tường & Cổng ---
   'W': { type: 'wall_stone', icon: '', name: 'Tường Thành Đá Xám', solid: true, css: 'tile-wall' },
   'P': { type: 'wall_palace', icon: '', name: 'Tường Thành Cấm Cung Sơn Son', solid: true, css: 'tile-wall-palace' },
-  'G': { type: 'gate', icon: '🚪', name: 'Cổng Thành', solid: false, css: 'tile-gate' },
-  'N': { type: 'palace_gate', icon: '⛩️', name: 'Cổng Ngọ Môn Hoàng Cung', solid: false, css: 'tile-palace-gate', interact: { type: 'palace_gate' } },
+  'G': { type: 'gate', icon: '', name: 'Cổng Thành', solid: false, css: 'tile-gate' },
+  'N': { type: 'palace_gate', icon: '', name: 'Cổng Ngọ Môn Hoàng Cung', solid: false, css: 'tile-palace-gate', interact: { type: 'palace_gate' } },
 
   // --- Công trình kiến trúc & Nhà cửa (Mái ngói Pure CSS) ---
   'R': { type: 'residence', icon: '', name: 'Khu Nhà Dân Cư', solid: true, css: 'tile-houses' },
@@ -32,15 +33,15 @@ export const TILE_LEGEND = {
   '#': { type: 'farmland', icon: '', name: 'Thửa Ruộng Củ Cải', solid: false, css: 'tile-farmland', isFarm: true },
 
   // --- Đồ vật tương tác sinh động ---
-  'K': { type: 'throne', icon: '👑', name: 'Ngai Vàng Chín Rồng', solid: false, css: 'tile-throne', interact: { type: 'imperial_throne' } },
-  'B': { type: 'drum', icon: '🥁', name: 'Trống Kêu Oan Đăng Văn Cổ', solid: false, css: 'tile-drum', interact: { type: 'justice_drum' } },
-  'D': { type: 'court_desk', icon: '📜', name: 'Bàn Công Án Huyện Đường', solid: false, css: 'tile-court', interact: { type: 'court_desk' } },
-  'J': { type: 'prison', icon: '⛓️', name: 'Cửa Ngục Giam Đại Lao', solid: false, css: 'tile-prison', interact: { type: 'prison_cell' } },
+  'K': { type: 'throne', icon: '', name: 'Ngai Vàng Chín Rồng', solid: false, css: 'tile-throne', interact: { type: 'imperial_throne' } },
+  'B': { type: 'drum', icon: '', name: 'Trống Kêu Oan Đăng Văn Cổ', solid: false, css: 'tile-drum', interact: { type: 'justice_drum' } },
+  'D': { type: 'court_desk', icon: '', name: 'Bàn Công Án Huyện Đường', solid: false, css: 'tile-court', interact: { type: 'court_desk' } },
+  'J': { type: 'prison', icon: '', name: 'Cửa Ngục Giam Đại Lao', solid: false, css: 'tile-prison', interact: { type: 'prison_cell' } },
   'E': { type: 'exam_hall', icon: '📜', name: 'Văn Miếu Khảo Thí Viện', solid: false, css: 'tile-building', interact: { type: 'exam_hall' } },
   'V': { type: 'caravan', icon: '🏪', name: 'Long Môn Tiêu Cục', solid: false, css: 'tile-building', interact: { type: 'building', buildingId: 'caravan' } },
-  'H': { type: 'house', icon: '🛖', name: 'Nhà Tranh Tiêu Diệp', solid: false, css: 'tile-house', interact: { type: 'rest' } },
-  'O': { type: 'well', icon: '🪣', name: 'Giếng Nước', solid: false, css: 'tile-well', interact: { type: 'well' } },
-  'S': { type: 'market_stall', icon: '🏮', name: 'Sạp Hàng Chợ Lớn', solid: false, css: 'tile-market-stall', interact: { type: 'market_stall_info' } },
+  'H': { type: 'house', icon: '', name: 'Nhà Tranh Tiêu Diệp', solid: false, css: 'tile-house', interact: { type: 'rest' } },
+  'O': { type: 'well', icon: '', name: 'Giếng Nước', solid: false, css: 'tile-well', interact: { type: 'well' } },
+  'S': { type: 'market_stall', icon: '', name: 'Sạp Hàng Chợ Lớn', solid: false, css: 'tile-market-stall', interact: { type: 'market_stall_info' } },
   'X': { type: 'wood_node', icon: '🪵', name: 'Bãi Củi Khô', solid: false, css: 'tile-wood-node', interact: { type: 'gather_wood' } },
   'F': { type: 'herb_node', icon: '🌿', name: 'Bụi Thảo Dược', solid: false, css: 'tile-herb-node', interact: { type: 'gather_herb' } },
 
@@ -57,7 +58,7 @@ export const TILE_LEGEND = {
 // 2. CÁC KHUÔN MẪU CÔNG TRÌNH TÁI SỬ DỤNG (REUSABLE PREFABS)
 // =========================================================
 
-// --- A. ĐIỆN THÁI HÒA & NGAI VÀNG HOÀNG CUNG ---
+// --- A. ĐIỆN THÁI HÒA & BỆ NGAI VÀNG CỬU LONG HOÀNG CUNG ---
 export const PREFAB_THAI_HOA_PALACE = [
   "PPPPPPPPPPPPPPPP",
   "PAAAAAAAAAAAAAAP",
@@ -66,7 +67,7 @@ export const PREFAB_THAI_HOA_PALACE = [
   "PPPPPPPMMGPPPPPP"
 ];
 
-// --- B. KHU PHỦ HUYỆN ĐƯỜNG NHA MÔN ---
+// --- B. KHU PHỦ HUYỆN ĐƯỜNG NHA MÔN UY NGHIÊM ---
 export const PREFAB_YAMEN_COMPLEX = [
   "WWWWWWWWWWWWWWWW",
   "W..............W",
@@ -79,7 +80,7 @@ export const PREFAB_YAMEN_COMPLEX = [
   "WWWWWWWGGWWWWWWW"
 ];
 
-// --- C. TRƯỜNG THI & VĂN MIẾU ---
+// --- C. TRƯỜNG THI & VĂN MIẾU QUỐC TỬ ---
 export const PREFAB_EXAM_ACADEMY = [
   "WWWWWWWWWWWWWWWW",
   "W..............W",
@@ -91,7 +92,7 @@ export const PREFAB_EXAM_ACADEMY = [
   "WWWWWWWGGWWWWWWW"
 ];
 
-// --- D. KHU PHỐ DÂN CƯ A (4 Cụm nhà + ngõ nhỏ + giếng) ---
+// --- D. KHU PHỐ DÂN CƯ A (4 Cụm nhà ngói + ngõ nhỏ + giếng nước cổ) ---
 export const PREFAB_RESIDENTIAL_A = [
   "RRR..RRR",
   "RRR..RRR",
@@ -100,21 +101,14 @@ export const PREFAB_RESIDENTIAL_A = [
   "RRR..RRR"
 ];
 
-// --- E. KHU PHỐ DÂN CƯ B (Nhà phố dài) ---
-export const PREFAB_RESIDENTIAL_B = [
-  "RRRRRRR",
-  ".......",
-  "RRRRRRR"
-];
-
-// --- F. KHU SẠP BUÔN CHỢ LỚN ---
+// --- E. DÃY SẠP BUÔN CHỢ LỚN (Lồng đèn đỏ đung đưa) ---
 export const PREFAB_MARKET_ROW = [
   "S.S.S.1.S.S",
   "...........",
   "S.S.S.S.S.S"
 ];
 
-// --- G. ĐIỀN TRANG TIÊU DIỆP & RUỘNG CỦ CẢI ---
+// --- F. ĐIỀN TRANG TIÊU DIỆP & 16 Ô RUỘNG CỦ CẢI ---
 export const PREFAB_FARM_HOMESTEAD = [
   "H..4.O...",
   ".........",
