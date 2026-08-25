@@ -1,6 +1,6 @@
 import { EventBus } from './EventBus.js';
 
-const STORAGE_KEY = 'BOC_Y_THANG_TRAM_SAVE_V3_BEIJING_96';
+const STORAGE_KEY = 'BOC_Y_THANG_TRAM_SAVE_V4_500X500';
 
 export class GameState {
   constructor() {
@@ -13,17 +13,18 @@ export class GameState {
       season: 'Xuân', // Xuân, Hạ, Thu, Đông
       timeOfDay: 'Sáng', // Sáng, Chiều, Tối
       weather: 'Nắng ấm',
-      currentZone: 'Vùng Ven Điền Trang'
+      currentZone: 'Vùng Ven Điền Trang Lạc Thủy'
     };
 
     this.player = {
       name: 'Tiêu Diệp',
       title: 'Nông Phu Áo Vải',
-      pos: { r: 86, c: 31 }, // Vị trí xuất phát cạnh nhà tranh ngoại thành
+      pos: { r: 455, c: 201 }, // Vị trí xuất phát cạnh nhà tranh ngoại thành 500x500
       ap: 10,
       maxAp: 10,
       health: 100,
       silver: 10, // Khởi đầu với 10 đồng bạc lận lưng
+      isRidingCarriage: false,
 
       stats: {
         strength: 10,     // Thể lực (Đốn củi, gánh vác)
@@ -35,31 +36,31 @@ export class GameState {
 
     this.inventory = {
       turnip: 2,           // 2 củ cải chín sẵn
-      turnip_seed: 6,      // 6 hạt giống củ cải
+      turnip_seed: 8,      // 8 hạt giống củ cải
       wood: 0,
       herb: 0,
       book_classics: 0,
       tea_pot: 0
     };
 
-    // Quản lý trạng thái từng ô ruộng: { farm_r_c: { state: 'empty'|'planted'|'watered'|'ready', crop: 'turnip', dayPlanted: 1 } }
+    // Quản lý trạng thái từng ô ruộng 500x500
     this.farms = {
-      'farm_87_30': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
-      'farm_87_31': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
-      'farm_87_32': { state: 'watered', crop: 'turnip', dayPlanted: 0 },
-      'farm_87_33': { state: 'planted', crop: 'turnip', dayPlanted: 0 },
-      'farm_87_34': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_87_35': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_87_36': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_87_37': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_30': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_31': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_32': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_33': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_34': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_35': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_36': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_88_37': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_456_200': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
+      'farm_456_201': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
+      'farm_456_202': { state: 'watered', crop: 'turnip', dayPlanted: 0 },
+      'farm_456_203': { state: 'planted', crop: 'turnip', dayPlanted: 0 },
+      'farm_456_204': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_456_205': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_456_206': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_456_207': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_200': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_201': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_202': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_203': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_204': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_205': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_206': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_457_207': { state: 'empty', crop: null, dayPlanted: 0 },
     };
 
     this.relationships = {
@@ -73,11 +74,13 @@ export class GameState {
       doctor_dong: 0,
       banker_khang: 0,
       lord_co: 0,
-      minister_vuong: 0
+      general_modung: 0,
+      scholar_giacat: 0,
+      tycoon_tham: 0
     };
 
     this.logs = [
-      { text: '📜 [Hành Trình Bắt Đầu] Tiêu Diệp thức dậy trong căn nhà tranh ven đô. Kinh Thành Bắc Kinh nguy nga tráng lệ đang mở ra trước mắt!', type: 'story' }
+      { text: '📜 [Hành Trình Bắt Đầu] Tiêu Diệp thức dậy trong căn nhà tranh ven sông Lạc Thủy. Đại Kinh Thành Bắc Kinh 500x500 tráng lệ đang vẫy gọi!', type: 'story' }
     ];
   }
 
@@ -176,9 +179,9 @@ export class GameState {
         this.farms = { ...this.farms, ...parsed.farms };
         this.relationships = { ...this.relationships, ...parsed.relationships };
 
-        // Đảm bảo nếu tọa độ cũ từ bản đồ trước thì tự động đưa về Điền Trang Nhà Tranh ngoại thành
-        if (!this.player.pos || (this.player.pos.r < 80 && this.player.title === 'Nông Phu Áo Vải')) {
-          this.player.pos = { r: 86, c: 31 };
+        // Đảm bảo nếu tọa độ cũ thì tự động đưa về Điền Trang Nhà Tranh 500x500
+        if (!this.player.pos || (this.player.pos.r < 410 && this.player.title === 'Nông Phu Áo Vải')) {
+          this.player.pos = { r: 455, c: 201 };
         }
 
         this.addLog('💾 Đã khôi phục tiến trình chơi.', 'info');

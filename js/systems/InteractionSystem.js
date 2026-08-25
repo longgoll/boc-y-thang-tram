@@ -206,6 +206,84 @@ export class InteractionSystem {
       this.gameState.addLog('🏛️ [Hàn Lâm Viện] Nơi lưu giữ hàng vạn pho sách cổ và văn bản quốc gia.', 'info');
       return;
     }
+
+    // 22. Dịch Trạm Xe Ngựa
+    if (action.type === 'carriage') {
+      EventBus.emit('OPEN_CARRIAGE_MENU');
+      return;
+    }
+
+    // 23. Biển Hiệu Thư Pháp Mạ Vàng
+    if (action.type === 'sign_info') {
+      this.gameState.addLog('📜 [Biển Hiệu Thư Pháp] Nét chữ phượng múa rồng bay mạ vàng son lộng lẫy trên cổng công trình.', 'info');
+      return;
+    }
+
+    // 24. Duyệt Lai Khách Điếm (Thuê phòng nghỉ đêm)
+    if (action.type === 'inn') {
+      EventBus.emit('OPEN_MODAL_CONFIRM', {
+        title: '🏨 Duyệt Lai Khách Điếm',
+        message: 'Bạn có muốn thuê một gian Thượng Phòng (Giá: 3 Bạc) để nghỉ ngơi qua đêm và hồi phục tối đa Thể Lực (AP)?',
+        onConfirm: () => {
+          if (this.gameState.player.silver < 3) {
+            this.gameState.addLog('⚠️ Bạn không đủ 3 Bạc để trả tiền phòng!', 'warn');
+            return;
+          }
+          this.gameState.addSilver(-3);
+          this.gameState.sleepNextDay();
+          this.renderer.render();
+          this.gameState.addLog('🛏️ Bạn ngủ một giấc thật ngon tại Duyệt Lai Khách Điếm, thức dậy tràn đầy sinh lực!', 'success');
+        }
+      });
+      return;
+    }
+
+    // 25. Lý Viên Hí Viện (Xem biểu diễn tuồng kinh kịch)
+    if (action.type === 'theater') {
+      EventBus.emit('OPEN_MODAL_CONFIRM', {
+        title: '🎭 Lý Viên Hí Viện',
+        message: 'Bạn có muốn mua vé thưởng thức một vở Kinh Kịch Kinh Đô (Giá: 2 Bạc, tiêu hao 1 AP) để nâng cao Khẩu Tài (+2 Khẩu Tài)?',
+        onConfirm: () => {
+          if (this.gameState.player.silver < 2) {
+            this.gameState.addLog('⚠️ Bạn không đủ 2 Bạc để mua vé xem hát!', 'warn');
+            return;
+          }
+          if (!this.gameState.consumeAP(1)) return;
+          this.gameState.addSilver(-2);
+          this.gameState.player.stats.charm += 2;
+          this.gameState.addLog('🎭 Tiếng đàn nhị vang lừng, đào kép diễn xuất xuất thần! Bạn thấu hiểu thế thái nhân tình (+2 Khẩu Tài)!', 'story');
+          EventBus.emit('STATE_CHANGED', this.gameState);
+        }
+      });
+      return;
+    }
+
+    // 26. Vạn An Đương Điếm & Miếu Thần Tài & Bến Thuyền
+    if (action.type === 'pawnshop') {
+      this.gameState.addLog('🏷️ [Vạn An Đương Điếm] Hiệu cầm đồ kinh thành. Nơi cầm cố châu báu khi túng thiếu.', 'info');
+      return;
+    }
+    if (action.type === 'temple') {
+      EventBus.emit('OPEN_MODAL_CONFIRM', {
+        title: '🛕 Miếu Thần Tài & Văn Xương Các',
+        message: 'Bạn có muốn thắp một nén hương thơm cầu phúc (Giá: 1 Bạc) để cầu may mắn hanh thông?',
+        onConfirm: () => {
+          if (this.gameState.player.silver < 1) {
+            this.gameState.addLog('⚠️ Bạn không có 1 Bạc để công đức thắp hương!', 'warn');
+            return;
+          }
+          this.gameState.addSilver(-1);
+          this.gameState.player.stats.reputation += 1;
+          this.gameState.addLog('🙏 Khói hương nghi ngút, tâm hồn thanh tịnh. Thần linh phù hộ vạn sự an khang (+1 Uy Danh)!', 'success');
+          EventBus.emit('STATE_CHANGED', this.gameState);
+        }
+      });
+      return;
+    }
+    if (action.type === 'dock') {
+      this.gameState.addLog('⛵ [Bến Thuyền Lạc Thủy] Tàu thuyền tấp nập chở hàng hóa đi khắp các châu phủ thiên hạ.', 'info');
+      return;
+    }
   }
 
   handleJusticeDrum() {

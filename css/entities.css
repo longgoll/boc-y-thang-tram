@@ -121,10 +121,67 @@
 
 @keyframes cropHarvestBounce {
   0% { transform: translateY(0) scale(1); }
-  100% { transform: translateY(-5px) scale(1.15); }
+  100% { transform: translateY(-4px) scale(1.1); }
 }
 
 @keyframes sproutGently {
   0% { transform: scale(0.95); }
-  100% { transform: scale(1.08); }
+  100% { transform: scale(1.05); }
+}
+
+/* --- 4. BÓNG CHAT NỔI TRÊN ĐẦU NPC (AMBIENT SPEECH BUBBLES) --- */
+.tile-speech-bubble {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid #e5c07b;
+  color: #fef08a;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 2px 7px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), 0 0 6px rgba(229, 192, 123, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 20;
+}
+
+.tile-speech-bubble.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  animation: speechFloat 2s ease-in-out infinite alternate;
+}
+
+.tile-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px 4px 0;
+  border-style: solid;
+  border-color: #e5c07b transparent;
+  display: block;
+  width: 0;
+}
+
+@keyframes speechFloat {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(-3px); }
+}
+
+/* Hiệu ứng xe ngựa di chuyển thời gian thực */
+.is-riding-carriage .tile-entity {
+  font-size: 32px;
+  animation: carriageRumble 0.25s infinite alternate ease-in-out;
+  filter: drop-shadow(0 0 10px #fbbf24);
+}
+
+@keyframes carriageRumble {
+  0% { transform: translateY(0) rotate(-2deg); }
+  100% { transform: translateY(-3px) rotate(2deg); }
 }

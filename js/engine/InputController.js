@@ -46,13 +46,25 @@ export class InputController {
           // Phím tương tác nhanh tại chỗ
           this.triggerTileInteraction(this.gameState.player.pos.r, this.gameState.player.pos.c);
           return;
+        case 'i':
+          document.getElementById('hud-btn-inv')?.click();
+          return;
+        case 'c':
+          document.getElementById('hud-btn-char')?.click();
+          return;
+        case 'm':
+          document.getElementById('hud-btn-carriage')?.click();
+          return;
+        case 'l':
+          document.getElementById('hud-btn-logs')?.click();
+          return;
         default:
           return;
       }
 
       e.preventDefault();
       this.cancelAutoMove();
-      this.attemptMove(dr, dc);
+      this.attemptMove(dr, dc, e.shiftKey);
     });
   }
 
@@ -171,16 +183,17 @@ export class InputController {
 
   checkZoneChange(pos) {
     const tile = this.worldMap[pos.r][pos.c];
-    let zoneName = 'Vùng Ven Điền Trang';
-    if (tile.zone === 'PALACE') zoneName = 'Tử Cấm Thành Hoàng Cung';
-    else if (tile.zone === 'YAMEN') zoneName = 'Phủ Huyện Đường & Văn Miếu';
-    else if (tile.zone === 'MARKET') zoneName = 'Phố Chợ Giao Thương';
-    else if (tile.zone === 'SUBURB') zoneName = 'Vùng Ven Điền Trang';
+    let zoneName = '🌾 Ngoại Ô Điền Trang';
+    if (tile.zone === 'PALACE') zoneName = '👑 Tử Cấm Thành Hoàng Cung';
+    else if (tile.zone === 'IMPERIAL_CITY') zoneName = '⛩️ Hoàng Thành Vùng Đệm';
+    else if (tile.zone === 'INNER_CITY') zoneName = '⚖️ Nội Thành - Lục Bộ & Tứ Đại Gia Tộc';
+    else if (tile.zone === 'OUTER_CITY') zoneName = '🏮 Ngoại Thành - Tiền Môn Phố Chợ';
+    else if (tile.zone === 'SUBURB') zoneName = '🌾 Ngoại Ô Điền Trang Lạc Thủy';
 
     if (this.gameState.world.currentZone !== zoneName) {
       this.gameState.world.currentZone = zoneName;
       this.gameState.addLog(`📍 Bạn đã đặt chân tới [${zoneName}].`, 'info');
-      EventBus.emit('ZONE_CHANGED', zoneName);
+      EventBus.emit('STATE_CHANGED', this.gameState);
     }
   }
 

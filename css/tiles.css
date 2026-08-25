@@ -433,6 +433,33 @@
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
 }
 
+/* Biển hiệu thư pháp mạ vàng treo trước cổng công trình */
+.tile-sign-board {
+  background: linear-gradient(180deg, #78350f 0%, #451a03 100%);
+  border: 2px solid #fbbf24;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), 0 0 8px rgba(251, 191, 36, 0.4);
+  position: relative;
+}
+.tile-sign-board::after {
+  content: '📜';
+  font-size: 16px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+/* Dịch trạm xe ngựa kinh đô */
+.tile-carriage-station {
+  background: radial-gradient(circle at center, #b45309 0%, #78350f 60%, #451a03 100%);
+  border: 2px solid #fde047;
+  border-radius: 6px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.8), 0 0 10px rgba(253, 224, 71, 0.4);
+}
+.tile-carriage-station::after {
+  content: '🛺';
+  font-size: 22px;
+  filter: drop-shadow(0 0 8px #fbbf24);
+}
+
 /* Đại kỳ hiệu lệnh triều đình */
 .tile-flag-banner {
   background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 60%, #450a0a 100%);

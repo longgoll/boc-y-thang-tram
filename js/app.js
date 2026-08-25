@@ -5,21 +5,22 @@ import { VirtualMapRenderer } from './engine/VirtualMapRenderer.js';
 import { InputController } from './engine/InputController.js';
 import { FarmingSystem } from './systems/FarmingSystem.js';
 import { InteractionSystem } from './systems/InteractionSystem.js';
+import { CarriageSystem } from './systems/CarriageSystem.js';
 import { UIManager } from './ui/UIManager.js';
 import { soundEngine } from './audio/SoundEffects.js';
 
 // Khởi chạy ứng dụng game
 window.addEventListener('DOMContentLoaded', () => {
-  console.log('🏯 Khởi tạo Game "Bốc Y Thăng Trầm"...');
+  console.log('🏯 Khởi tạo Game "Bốc Y Thăng Trầm" (Bản đồ 500x500)...');
 
   // 1. Dữ liệu bản đồ & GameState
   const worldMap = createWorldMapData();
   const gameState = new GameState();
   gameState.loadGame(); // Tải lại tiến trình cũ nếu có
 
-  // 2. Camera & Virtual Viewport (Màn hình hiển thị 15 cột x 11 hàng)
+  // 2. Camera & Virtual Viewport (Màn hình mở rộng 25 cột x 15 hàng Fullscreen Game)
   const mapContainer = document.getElementById('map-grid-container');
-  const camera = new Camera(15, 11, MAP_CONFIG.COLS, MAP_CONFIG.ROWS);
+  const camera = new Camera(25, 15, MAP_CONFIG.COLS, MAP_CONFIG.ROWS);
 
   // 3. Renderer tối ưu hiệu năng 60 FPS
   const renderer = new VirtualMapRenderer(mapContainer, worldMap, camera, gameState);
@@ -30,6 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // 5. Hệ thống gameplay
   const farmingSystem = new FarmingSystem(gameState, renderer);
   const interactionSystem = new InteractionSystem(gameState, renderer);
+  const carriageSystem = new CarriageSystem(gameState, renderer);
 
   // 6. Giao diện & Âm thanh
   const uiManager = new UIManager(gameState, inputController);

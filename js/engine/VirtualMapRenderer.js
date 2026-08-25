@@ -16,8 +16,8 @@ export class VirtualMapRenderer {
   createDomGrid() {
     this.container.innerHTML = '';
     this.container.style.display = 'grid';
-    this.container.style.gridTemplateColumns = `repeat(${this.camera.viewportCols}, var(--tile-size, 48px))`;
-    this.container.style.gridTemplateRows = `repeat(${this.camera.viewportRows}, var(--tile-size, 48px))`;
+    this.container.style.gridTemplateColumns = `repeat(${this.camera.viewportCols}, var(--tile-size, 52px))`;
+    this.container.style.gridTemplateRows = `repeat(${this.camera.viewportRows}, var(--tile-size, 52px))`;
 
     this.domCells = [];
 
@@ -29,24 +29,29 @@ export class VirtualMapRenderer {
         cell.dataset.vr = vr;
         cell.dataset.vc = vc;
 
-        // Nội dung bên trong ô
+        // 1. Biển hiệu hoặc Icon địa hình
         const iconSpan = document.createElement('span');
         iconSpan.className = 'tile-icon';
         cell.appendChild(iconSpan);
 
-        // Lớp hiển thị nhân vật / NPC đè lên
+        // 2. Lớp hiển thị nhân vật / NPC / Xe ngựa
         const entitySpan = document.createElement('span');
         entitySpan.className = 'tile-entity';
         cell.appendChild(entitySpan);
 
+        // 3. Bóng Chat bay lơ lửng trên đầu NPC (Speech Bubble)
+        const bubbleSpan = document.createElement('span');
+        bubbleSpan.className = 'tile-speech-bubble';
+        cell.appendChild(bubbleSpan);
+
         this.container.appendChild(cell);
-        row.push({ element: cell, iconSpan, entitySpan });
+        row.push({ element: cell, iconSpan, entitySpan, bubbleSpan });
       }
       this.domCells.push(row);
     }
   }
 
-  // Cập nhật lại khung nhìn siêu tốc (O(viewport), chỉ tốn ~160 phép gán text/class)
+  // Cập nhật lại khung nhìn siêu tốc (O(viewport), chỉ tốn ~200 phép gán text/class)
   render() {
     const cam = this.camera.update(this.gameState.player.pos);
     const pPos = this.gameState.player.pos;
@@ -76,42 +81,65 @@ export class VirtualMapRenderer {
         if (tile.farmId && this.gameState.farms[tile.farmId]) {
           const farm = this.gameState.farms[tile.farmId];
           if (farm.state === 'ready') {
-            baseIcon = '🥕'; // Củ cải đã chín
+            baseIcon = '🥕'; // Củ cải chín
             cellData.element.classList.add('farm-ready');
           } else if (farm.state === 'watered') {
-            baseIcon = '💧🌱'; // Đang tưới nước lớn dần
+            baseIcon = '💧🌱'; // Đang lớn
             cellData.element.classList.add('farm-watered');
           } else if (farm.state === 'planted') {
-            baseIcon = '🌱'; // Mới gieo hạt
+            baseIcon = '🌱'; // Mới gieo
             cellData.element.classList.add('farm-planted');
           } else {
-            baseIcon = ''; // Đất trống (hiển thị bằng texture Pure CSS)
+            baseIcon = '';
             cellData.element.classList.add('farm-empty');
           }
         }
 
         cellData.iconSpan.textContent = baseIcon;
 
-        // 3. Hiển thị Entity (Người chơi hoặc NPC)
+        // 3. Hiển thị Entity (Người chơi hoặc NPC hoặc Xe Ngựa)
         let entityIcon = '';
+        let bubbleText = '';
         let isPlayer = (mapR === pPos.r && mapC === pPos.c);
 
         if (isPlayer) {
-          entityIcon = '🧙‍♂️';
+          entityIcon = this.gameState.player.isRidingCarriage ? '🛺' : '🧙‍♂️';
           cellData.element.classList.add('has-player');
+          if (this.gameState.player.isRidingCarriage) {
+            cellData.element.classList.add('is-riding-carriage');
+          } else {
+            cellData.element.classList.remove('is-riding-carriage');
+          }
         } else {
           cellData.element.classList.remove('has-player');
+          cellData.element.classList.remove('is-riding-carriage');
+
           // Kiểm tra xem có NPC nào đang đứng ở ô này không
           if (tile.interact && tile.interact.type === 'npc') {
             const npc = NPCS[tile.interact.npcId];
             if (npc) {
               entityIcon = npc.avatar || '👤';
               cellData.element.classList.add('has-npc');
+
+              // Hiện Bóng Chat (Speech Bubble) khi người chơi ở gần trong bán kính 4 ô
+              const dist = Math.abs(mapR - pPos.r) + Math.abs(mapC - pPos.c);
+              if (dist <= 4 && npc.ambient) {
+                bubbleText = npc.ambient;
+              }
             }
           }
         }
 
         cellData.entitySpan.textContent = entityIcon;
+
+        // 4. Cập nhật bóng thoại Speech Bubble
+        if (bubbleText) {
+          cellData.bubbleSpan.textContent = bubbleText;
+          cellData.bubbleSpan.classList.add('is-visible');
+        } else {
+          cellData.bubbleSpan.textContent = '';
+          cellData.bubbleSpan.classList.remove('is-visible');
+        }
       }
     }
   }
