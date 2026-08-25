@@ -172,8 +172,10 @@ export class InputController {
   checkZoneChange(pos) {
     const tile = this.worldMap[pos.r][pos.c];
     let zoneName = 'Vùng Ven Điền Trang';
-    if (tile.zone === 'CITY') zoneName = 'Kinh Thành Quyền Lực';
+    if (tile.zone === 'PALACE') zoneName = 'Tử Cấm Thành Hoàng Cung';
+    else if (tile.zone === 'YAMEN') zoneName = 'Phủ Huyện Đường & Văn Miếu';
     else if (tile.zone === 'MARKET') zoneName = 'Phố Chợ Giao Thương';
+    else if (tile.zone === 'SUBURB') zoneName = 'Vùng Ven Điền Trang';
 
     if (this.gameState.world.currentZone !== zoneName) {
       this.gameState.world.currentZone = zoneName;

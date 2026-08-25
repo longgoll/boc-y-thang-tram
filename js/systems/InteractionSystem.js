@@ -74,8 +74,8 @@ export class InteractionSystem {
       return;
     }
 
-    // 8. Cung điện Cấm Cung
-    if (action.type === 'palace') {
+    // 8. Cung điện Cấm Cung / Cổng Ngọ Môn
+    if (action.type === 'palace' || action.type === 'palace_gate') {
       if (this.gameState.player.stats.reputation < 80) {
         this.gameState.addLog('🏯 Cấm Vệ Quân: "Ngươi chỉ là dân thường áo vải, chưa có công trạng với triều đình, không được phép diện kiến Hoàng Đế!"', 'warn');
       } else {
@@ -87,7 +87,67 @@ export class InteractionSystem {
     // 9. Long Môn Tiêu Cục
     if (action.type === 'building' && action.buildingId === 'caravan') {
       this.handleCaravan();
+      return;
     }
+
+    // 10. Trống kêu oan Đăng Văn Cổ
+    if (action.type === 'justice_drum') {
+      this.handleJusticeDrum();
+      return;
+    }
+
+    // 11. Bàn công án Tri Huyện
+    if (action.type === 'court_desk') {
+      this.gameState.addLog('📜 [Bàn Công Án] Trên bàn đầy ắp sổ bộ điền trạch và hồ sơ án tích do Quan Huyện thụ lý.', 'info');
+      return;
+    }
+
+    // 12. Ngục giam
+    if (action.type === 'prison_cell') {
+      this.gameState.addLog('⛓️ [Đại Lao Huyện Nha] Không khí u tối, tiếng xích sắt vang vọng. Nơi giam giữ những phạm nhân trọng tội.', 'warn');
+      return;
+    }
+
+    // 13. Ngai vàng chín rồng
+    if (action.type === 'imperial_throne') {
+      if (this.gameState.player.stats.reputation >= 80) {
+        this.gameState.addLog('👑 [Ngai Vàng Cửu Long] Bạn đứng trước bảo tọa chín rồng uy nghi, thâu tóm quyền lực thiên hạ trong tay!', 'story');
+      } else {
+        this.gameState.addLog('⚠️ Bạn ngước nhìn Ngai Vàng Chín Rồng lộng lẫy từ xa. Hãy rèn luyện để một ngày bước lên đỉnh cao triều đình!', 'info');
+      }
+      return;
+    }
+
+    // 14. Hồ sen Ngọc Hậu Cung
+    if (action.type === 'lotus_pond') {
+      this.gameState.addLog('🪷 [Hồ Sen Ngọc] Hoa sen nở rộ thơm ngát trong làn gió nhẹ. Cảnh sắc thần tiên thoát tục.', 'info');
+      return;
+    }
+
+    // 15. Cầu đá Kim Thủy
+    if (action.type === 'bridge_info') {
+      this.gameState.addLog(action.prompt || '🌉 Cầu đá cẩm thạch nguy nga tráng lệ bắc qua sông Kim Thủy.', 'info');
+      return;
+    }
+
+    // 16. Sạp hàng chợ
+    if (action.type === 'market_stall_info') {
+      this.gameState.addLog(action.prompt || '🏮 Khách mua hàng tấp nập, tiếng rao hàng vang rộn khắp con phố.', 'info');
+      return;
+    }
+  }
+
+  handleJusticeDrum() {
+    EventBus.emit('OPEN_MODAL_CONFIRM', {
+      title: '🥁 Đánh Trống Kêu Oan (Đăng Văn Cổ)',
+      message: 'Bạn có muốn dùng dùi gõ vang hồi trống kêu oan thấu trời xanh? Hành động này tiêu hao 1 Thể Lực (AP) và thu hút sự chú ý của quan nha.',
+      onConfirm: () => {
+        if (!this.gameState.consumeAP(1)) return;
+        this.gameState.player.stats.charm += 1;
+        this.gameState.addLog('🥁 "Thùng! Thùng! Thùng!" Tiếng trống Đăng Văn vang dội khắp huyện đường! Uy đức và danh tiếng của bạn được bá tánh chú ý (+1 Khẩu Tài)!', 'story');
+        EventBus.emit('STATE_CHANGED', this.gameState);
+      }
+    });
   }
 
   handleExamHall() {

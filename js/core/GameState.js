@@ -1,6 +1,6 @@
 import { EventBus } from './EventBus.js';
 
-const STORAGE_KEY = 'BOC_Y_THANG_TRAM_SAVE_V1';
+const STORAGE_KEY = 'BOC_Y_THANG_TRAM_SAVE_V2';
 
 export class GameState {
   constructor() {
@@ -19,7 +19,7 @@ export class GameState {
     this.player = {
       name: 'Tiêu Diệp',
       title: 'Nông Phu Áo Vải',
-      pos: { r: 29, c: 9 }, // Vị trí xuất phát cạnh nhà tranh
+      pos: { r: 56, c: 19 }, // Vị trí xuất phát cạnh nhà tranh ngoại thành
       ap: 10,
       maxAp: 10,
       health: 100,
@@ -35,7 +35,7 @@ export class GameState {
 
     this.inventory = {
       turnip: 2,           // 2 củ cải chín sẵn
-      turnip_seed: 4,      // 4 hạt giống củ cải
+      turnip_seed: 6,      // 6 hạt giống củ cải
       wood: 0,
       herb: 0,
       book_classics: 0,
@@ -44,14 +44,22 @@ export class GameState {
 
     // Quản lý trạng thái từng ô ruộng: { farm_r_c: { state: 'empty'|'planted'|'watered'|'ready', crop: 'turnip', dayPlanted: 1 } }
     this.farms = {
-      'farm_31_8': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
-      'farm_31_9': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
-      'farm_31_10': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_31_11': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_32_8': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_32_9': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_32_10': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_32_11': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_58_18': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
+      'farm_58_19': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
+      'farm_58_20': { state: 'watered', crop: 'turnip', dayPlanted: 0 },
+      'farm_58_21': { state: 'planted', crop: 'turnip', dayPlanted: 0 },
+      'farm_58_22': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_58_23': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_58_24': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_58_25': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_18': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_19': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_20': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_21': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_22': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_23': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_24': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_59_25': { state: 'empty', crop: null, dayPlanted: 0 },
     };
 
     this.relationships = {
