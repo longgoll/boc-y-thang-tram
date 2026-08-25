@@ -269,14 +269,6 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(225, 29, 72, 0.3);
   position: relative;
 }
-.tile-mansion::after {
-  content: '🏯';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  font-size: 14px;
-  opacity: 0.8;
-}
 
 /* Nhà tranh Tiêu Diệp nông thôn */
 .tile-house {
@@ -425,6 +417,94 @@
   content: '🪣';
   font-size: 16px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+
+/* Sư tử đá trấn trạch uy nghi */
+.tile-stone-lion {
+  background: radial-gradient(circle at center, #64748b 0%, #334155 60%, #0f172a 100%);
+  border: 2px solid #94a3b8;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+.tile-stone-lion::after {
+  content: '🦁';
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
+}
+
+/* Đại kỳ hiệu lệnh triều đình */
+.tile-flag-banner {
+  background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 60%, #450a0a 100%);
+  border: 1px solid #facc15;
+  position: relative;
+}
+.tile-flag-banner::after {
+  content: '🚩';
+  font-size: 18px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+  animation: lanternSway 1.5s ease-in-out infinite alternate;
+}
+
+/* Thái Bạch Tửu Lâu (Mái ngói son đỏ lầu rượu) */
+.tile-tavern {
+  background: #450a0a;
+  background-image: 
+    repeating-linear-gradient(180deg, #dc2626 0px, #dc2626 4px, #7f1d1d 4px, #7f1d1d 8px),
+    linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.5) 100%);
+  border-top: 4px solid #facc15;
+  border-bottom: 4px solid #1f010a;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+/* Đồng Nhân Dược Điếm (Hiệu thuốc bắc đông y) */
+.tile-pharmacy {
+  background: #064e3b;
+  background-image: 
+    repeating-linear-gradient(180deg, #059669 0px, #059669 4px, #047857 4px, #047857 8px);
+  border-top: 4px solid #34d399;
+  border-bottom: 4px solid #022c22;
+  border-radius: 3px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+/* Khang Ký Tiền Trang (Ngân hiệu kinh thành) */
+.tile-bank {
+  background: #78350f;
+  background-image: 
+    repeating-linear-gradient(180deg, #d97706 0px, #d97706 4px, #92400e 4px, #92400e 8px);
+  border-top: 4px solid #fde047;
+  border-bottom: 4px solid #451a03;
+  border-radius: 3px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+/* Cẩm Tú Trang (Tiệm tơ lụa ngũ sắc) */
+.tile-silk {
+  background: #831843;
+  background-image: 
+    repeating-linear-gradient(180deg, #db2777 0px, #db2777 4px, #9d174d 4px, #9d174d 8px);
+  border-top: 4px solid #f472b6;
+  border-bottom: 4px solid #500724;
+  border-radius: 3px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+/* Thiết Tượng Phô (Lò rèn đao kiếm rực lửa) */
+.tile-forge {
+  background: #18181b;
+  background-image: 
+    radial-gradient(circle at center, #ea580c 0%, #7c2d12 40%, #18181b 80%);
+  border-top: 4px solid #f97316;
+  border-bottom: 4px solid #09090b;
+  border-radius: 3px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.8);
+  position: relative;
 }
 
 /* Dãy núi đá bao bọc */

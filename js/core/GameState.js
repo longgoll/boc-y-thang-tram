@@ -1,6 +1,6 @@
 import { EventBus } from './EventBus.js';
 
-const STORAGE_KEY = 'BOC_Y_THANG_TRAM_SAVE_V2';
+const STORAGE_KEY = 'BOC_Y_THANG_TRAM_SAVE_V3_BEIJING_96';
 
 export class GameState {
   constructor() {
@@ -19,7 +19,7 @@ export class GameState {
     this.player = {
       name: 'Tiêu Diệp',
       title: 'Nông Phu Áo Vải',
-      pos: { r: 56, c: 19 }, // Vị trí xuất phát cạnh nhà tranh ngoại thành
+      pos: { r: 86, c: 31 }, // Vị trí xuất phát cạnh nhà tranh ngoại thành
       ap: 10,
       maxAp: 10,
       health: 100,
@@ -44,22 +44,22 @@ export class GameState {
 
     // Quản lý trạng thái từng ô ruộng: { farm_r_c: { state: 'empty'|'planted'|'watered'|'ready', crop: 'turnip', dayPlanted: 1 } }
     this.farms = {
-      'farm_58_18': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
-      'farm_58_19': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
-      'farm_58_20': { state: 'watered', crop: 'turnip', dayPlanted: 0 },
-      'farm_58_21': { state: 'planted', crop: 'turnip', dayPlanted: 0 },
-      'farm_58_22': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_58_23': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_58_24': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_58_25': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_18': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_19': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_20': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_21': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_22': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_23': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_24': { state: 'empty', crop: null, dayPlanted: 0 },
-      'farm_59_25': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_87_30': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
+      'farm_87_31': { state: 'ready', crop: 'turnip', dayPlanted: 0 },
+      'farm_87_32': { state: 'watered', crop: 'turnip', dayPlanted: 0 },
+      'farm_87_33': { state: 'planted', crop: 'turnip', dayPlanted: 0 },
+      'farm_87_34': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_87_35': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_87_36': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_87_37': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_30': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_31': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_32': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_33': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_34': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_35': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_36': { state: 'empty', crop: null, dayPlanted: 0 },
+      'farm_88_37': { state: 'empty', crop: null, dayPlanted: 0 },
     };
 
     this.relationships = {
@@ -68,11 +68,16 @@ export class GameState {
       tea_master_hoa: 0,
       farmer_ba: 10,
       guard_truong: 0,
-      magistrate_quan: 0
+      magistrate_quan: 0,
+      tavern_keeper: 0,
+      doctor_dong: 0,
+      banker_khang: 0,
+      lord_co: 0,
+      minister_vuong: 0
     };
 
     this.logs = [
-      { text: '📜 [Hành Trình Bắt Đầu] Tiêu Diệp thức dậy trong căn nhà tranh ven đô. Hãy bước ra chăm nom ruộng củ cải!', type: 'story' }
+      { text: '📜 [Hành Trình Bắt Đầu] Tiêu Diệp thức dậy trong căn nhà tranh ven đô. Kinh Thành Bắc Kinh nguy nga tráng lệ đang mở ra trước mắt!', type: 'story' }
     ];
   }
 
@@ -170,7 +175,13 @@ export class GameState {
         this.inventory = { ...this.inventory, ...parsed.inventory };
         this.farms = { ...this.farms, ...parsed.farms };
         this.relationships = { ...this.relationships, ...parsed.relationships };
-        this.addLog('💾 Đã khôi phục tiến trình chơi đã lưu từ trước.', 'info');
+
+        // Đảm bảo nếu tọa độ cũ từ bản đồ trước thì tự động đưa về Điền Trang Nhà Tranh ngoại thành
+        if (!this.player.pos || (this.player.pos.r < 80 && this.player.title === 'Nông Phu Áo Vải')) {
+          this.player.pos = { r: 86, c: 31 };
+        }
+
+        this.addLog('💾 Đã khôi phục tiến trình chơi.', 'info');
         EventBus.emit('STATE_CHANGED', this);
         return true;
       }

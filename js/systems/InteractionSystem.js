@@ -135,6 +135,77 @@ export class InteractionSystem {
       this.gameState.addLog(action.prompt || '🏮 Khách mua hàng tấp nập, tiếng rao hàng vang rộn khắp con phố.', 'info');
       return;
     }
+
+    // 17. Thái Bạch Tửu Lâu
+    if (action.type === 'tavern') {
+      EventBus.emit('OPEN_MODAL_CONFIRM', {
+        title: '🍷 Thái Bạch Tửu Lâu',
+        message: 'Bạn có muốn gọi một vò Nữ Nhi Hồng Thượng Hạng (Giá: 5 Bạc) để phục hồi ngay +5 Thể Lực (AP)?',
+        onConfirm: () => {
+          if (this.gameState.player.silver < 5) {
+            this.gameState.addLog('⚠️ Bạn không đủ 5 Bạc để thanh toán tiền rượu!', 'warn');
+            return;
+          }
+          this.gameState.addSilver(-5);
+          this.gameState.player.ap = Math.min(this.gameState.player.maxAp, this.gameState.player.ap + 5);
+          this.gameState.addLog('🍶 [Mỹ Tửu] Rượu ngon ngấm vào kinh mạch! Thể lực hồi phục +5 AP!', 'success');
+          EventBus.emit('STATE_CHANGED', this.gameState);
+        }
+      });
+      return;
+    }
+
+    // 18. Đồng Nhân Dược Điếm
+    if (action.type === 'pharmacy') {
+      EventBus.emit('OPEN_MODAL_INFO', {
+        title: '💊 Đồng Nhân Dược Điếm',
+        message: 'Hiệu thuốc danh tiếng ngàn năm. Có thể bán thảo dược thu gom được từ đồng quê để lấy Bạc.',
+        actionBtnText: 'Bán 1 Bụi Thảo Dược (+5 Bạc)',
+        actionDisabled: (this.gameState.inventory.herb || 0) < 1,
+        onAction: () => {
+          if (this.gameState.removeItem('herb', 1)) {
+            this.gameState.addSilver(5);
+            this.gameState.addLog('🌿 [Bán Thuốc] Đồng Chưởng Quỹ thu mua 1 Thảo Dược của bạn với giá 5 Bạc!', 'success');
+            EventBus.emit('STATE_CHANGED', this.gameState);
+          }
+        }
+      });
+      return;
+    }
+
+    // 19. Khang Ký Tiền Trang
+    if (action.type === 'bank') {
+      this.gameState.addLog('🏦 [Khang Ký Tiền Trang] Ngân phiếu, vàng bạc chất đầy kho. Nơi tụ hội của các cự phú thiên hạ.', 'info');
+      return;
+    }
+
+    // 20. Cẩm Tú Trang & Lò Rèn
+    if (action.type === 'silk_shop') {
+      this.gameState.addLog('👘 [Cẩm Tú Trang] Gấm vóc tơ lụa Tô Châu sặc sỡ, chỉ dành riêng cho quan gia và quý tộc kinh kỳ.', 'info');
+      return;
+    }
+    if (action.type === 'forge') {
+      this.gameState.addLog('⚒️ [Thiết Tượng Phô] Tiếng búa đập chan chát rèn giũa binh khí cho cấm quân triều đình.', 'info');
+      return;
+    }
+
+    // 21. Sư tử đá & Cổng thành & Lục bộ
+    if (action.type === 'stone_lion_info') {
+      this.gameState.addLog('🦁 Cặp sư tử đá cẩm thạch oai phong trấn thủ trước cửa vương phủ quyền quý.', 'info');
+      return;
+    }
+    if (action.type === 'gate_info') {
+      this.gameState.addLog(`🚪 [${action.name || 'Cổng Thành'}] Cửa thành cao vút, tường thành kiên cố vững chãi ngàn năm.`, 'info');
+      return;
+    }
+    if (action.type === 'ministry') {
+      this.gameState.addLog(`📜 [${action.name || 'Nha Môn'}] Cơ quan trọng yếu của triều đình, cấm kẻ không phận sự dòm ngó.`, 'info');
+      return;
+    }
+    if (action.type === 'academy_info') {
+      this.gameState.addLog('🏛️ [Hàn Lâm Viện] Nơi lưu giữ hàng vạn pho sách cổ và văn bản quốc gia.', 'info');
+      return;
+    }
   }
 
   handleJusticeDrum() {

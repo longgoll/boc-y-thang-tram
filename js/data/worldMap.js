@@ -1,23 +1,40 @@
 // =========================================================
-// ĐẠI BẢN ĐỒ THẾ GIỚI MỞ LIỀN MẠCH (SEAMLESS MEGA MAP 64x64)
-// TẬP HỢP TỪ CÁC ASCII CHUNKS & PREFABS TÁI SỬ DỤNG
+// ĐẠI BẢN ĐỒ KINH THÀNH BẮC KINH CỔ (SEAMLESS MEGA MAP 96x96)
+// TÁI HIỆN BỐ CỤC: THÀNH NGOÀI -> THÀNH TRONG -> HOÀNG THÀNH -> TỬ CẤM THÀNH
 // =========================================================
 
 import {
   TILE_LEGEND,
   PREFAB_THAI_HOA_PALACE,
+  PREFAB_CAN_THANH_PALACE,
+  PREFAB_NGO_MON_GATE,
+  PREFAB_THAI_MIEU,
+  PREFAB_XA_TAC_DAN,
   PREFAB_YAMEN_COMPLEX,
+  PREFAB_SIX_MINISTRIES_WEST,
+  PREFAB_SIX_MINISTRIES_EAST,
   PREFAB_EXAM_ACADEMY,
-  PREFAB_RESIDENTIAL_A,
+  PREFAB_HAN_LIN_ACADEMY,
+  PREFAB_ROYAL_MANSION,
+  PREFAB_GENERAL_MANSION,
+  PREFAB_MINISTER_MANSION,
+  PREFAB_SIHEYUAN_A,
+  PREFAB_SIHEYUAN_B,
+  PREFAB_RESIDENTIAL_BLOCK,
+  PREFAB_TAVERN_DISTRICT,
+  PREFAB_COMMERCE_ROW,
+  PREFAB_SCHOLAR_STREET,
   PREFAB_MARKET_ROW,
   PREFAB_FARM_HOMESTEAD,
+  PREFAB_INNER_GATE_COMPLEX,
+  PREFAB_OUTER_GATE_COMPLEX,
   stampPrefab,
   fillAreaChar
 } from './prefabs.js';
 
 export const MAP_CONFIG = {
-  ROWS: 64,
-  COLS: 64,
+  ROWS: 96,
+  COLS: 96,
   TILE_SIZE: 52,
 };
 
@@ -27,162 +44,242 @@ export function createWorldMapData() {
   const R = MAP_CONFIG.ROWS;
   const C = MAP_CONFIG.COLS;
 
-  // 1. Khởi tạo ma trận trống mặc định toàn bộ là đồng cỏ hoa dại
+  // 1. Khởi tạo ma trận toàn bộ bản đồ với đồng cỏ tự nhiên
   const grid = [];
   for (let r = 0; r < R; r++) {
     const row = [];
     for (let c = 0; c < C; c++) {
+      let zone = 'SUBURB';
+      if (r < 22) zone = 'PALACE';
+      else if (r < 28) zone = 'IMPERIAL_CITY';
+      else if (r < 54) zone = 'INNER_CITY';
+      else if (r < 80) zone = 'OUTER_CITY';
+
       row.push({
         r,
         c,
         type: 'grass',
         icon: '',
-        name: 'Đồng Cỏ Hoa Dại',
+        name: 'Đồng Cỏ Tự Nhiên',
         solid: false,
         css: 'tile-grass',
         interact: null,
-        zone: r < 19 ? 'PALACE' : r < 33 ? 'YAMEN' : r < 49 ? 'MARKET' : 'SUBURB'
+        zone
       });
     }
     grid.push(row);
   }
 
-  // 2. DÃY NÚI BAO BỌC TỨ PHÍA BẢN ĐỒ
+  // 2. DÃY NÚI CẢNH SƠN & THẬP VẠN ĐẠI SƠN BAO BỌC TỨ PHÍA
   fillAreaChar(grid, 0, 0, 0, C - 1, '^');
   fillAreaChar(grid, R - 1, 0, R - 1, C - 1, '^');
   fillAreaChar(grid, 0, 0, R - 1, 0, '^');
   fillAreaChar(grid, 0, C - 1, R - 1, C - 1, '^');
 
-  // 3. TRỤC ĐƯỜNG THẦN ĐẠO XUYÊN SUỐT NAM - BẮC (Cột 31, 32)
-  fillAreaChar(grid, 1, 31, 18, 32, 'M', 'PALACE'); // Cẩm thạch hoàng cung
-  fillAreaChar(grid, 19, 31, 48, 32, '.', 'MARKET'); // Đường đá kinh kỳ
-  fillAreaChar(grid, 49, 31, 62, 32, ',', 'SUBURB'); // Đường đất có vệt xe
+  // Đỉnh Cảnh Sơn trấn yểm phía Bắc Tử Cấm Thành (Hàng 1..2)
+  for (let c = 20; c <= 75; c++) {
+    if (c % 2 === 0 && !(c >= 45 && c <= 50)) {
+      fillAreaChar(grid, 1, c, 1, c, '^', 'PALACE');
+    }
+  }
 
   // =========================================================================
-  // PHÂN KHU 4: QUẦN THỂ TỬ CẤM THÀNH HOÀNG CUNG (Rows 1..18)
+  // TẦNG 1: TỬ CẤM THÀNH HOÀNG CUNG HOÀNG GIA (Rows 2..21, Cols 14..81)
   // =========================================================================
-  // Tường cấm cung đỏ sơn son
-  fillAreaChar(grid, 1, 8, 1, 55, 'P', 'PALACE');
-  fillAreaChar(grid, 18, 8, 18, 55, 'P', 'PALACE');
-  fillAreaChar(grid, 1, 8, 18, 8, 'P', 'PALACE');
-  fillAreaChar(grid, 1, 55, 18, 55, 'P', 'PALACE');
+  // Tường Thành Cấm Cung Sơn Son Dát Vàng
+  fillAreaChar(grid, 2, 14, 2, 81, 'P', 'PALACE');
+  fillAreaChar(grid, 21, 14, 21, 81, 'P', 'PALACE');
+  fillAreaChar(grid, 2, 14, 21, 14, 'P', 'PALACE');
+  fillAreaChar(grid, 2, 81, 21, 81, 'P', 'PALACE');
 
-  // Cổng Ngọ Môn cấm vệ (Lầu Ngũ Phụng)
-  fillAreaChar(grid, 18, 31, 18, 32, 'N', 'PALACE');
+  // Cổng Hậu Cung Phía Bắc (Row 2, Cols 46..49)
+  fillAreaChar(grid, 2, 46, 2, 49, 'M', 'PALACE');
 
-  // Ngự Hoa Viên & Kỳ hoa cổ thụ nở hoa hồng phấn
-  for (let r = 2; r <= 5; r++) {
-    for (let c = 12; c <= 51; c++) {
-      if ((r + c) % 4 === 0 && !(c >= 28 && c <= 35)) {
+  // Hậu Cung & Càn Thanh Cung (Hàng 3..8, Cột 38)
+  stampPrefab(grid, 3, 38, PREFAB_CAN_THANH_PALACE, 'PALACE');
+
+  // Ngự Hoa Viên & 2 Hồ Sen Ngọc Bích
+  fillAreaChar(grid, 4, 18, 6, 30, 'L', 'PALACE');
+  fillAreaChar(grid, 4, 65, 6, 77, 'L', 'PALACE');
+  for (let r = 3; r <= 8; r++) {
+    for (let c = 16; c <= 34; c++) {
+      if ((r + c) % 3 === 0 && grid[r][c].type !== 'water_lotus') {
+        fillAreaChar(grid, r, c, r, c, 'Y', 'PALACE');
+      }
+    }
+    for (let c = 61; c <= 79; c++) {
+      if ((r + c) % 3 === 0 && grid[r][c].type !== 'water_lotus') {
         fillAreaChar(grid, r, c, r, c, 'Y', 'PALACE');
       }
     }
   }
-  // 2 Hồ Sen Ngọc Hậu Cung
-  fillAreaChar(grid, 3, 16, 4, 22, 'L', 'PALACE');
-  fillAreaChar(grid, 3, 41, 4, 47, 'L', 'PALACE');
 
-  // Điện Thái Hòa & Ngai Vàng Chín Rồng (Prefab)
-  stampPrefab(grid, 6, 24, PREFAB_THAI_HOA_PALACE, 'PALACE');
+  // Điện Thái Hòa & Ngai Vàng Cửu Long (Hàng 8, Cột 36)
+  stampPrefab(grid, 8, 36, PREFAB_THAI_HOA_PALACE, 'PALACE');
 
-  // Đại Quảng Trường Triều Nghi Lát Cẩm Thạch
-  fillAreaChar(grid, 11, 16, 15, 47, 'Z', 'PALACE');
-  fillAreaChar(grid, 11, 31, 15, 32, 'M', 'PALACE');
+  // Đại Quảng Trường Triều Nghi Cẩm Thạch & Hàng Bia Phẩm Trật Quan Viên
+  fillAreaChar(grid, 13, 20, 16, 75, 'Z', 'PALACE');
+  fillAreaChar(grid, 13, 46, 16, 49, 'M', 'PALACE');
+  // Bia phẩm trật Tả Ban Văn Thần (Đông) & Hữu Ban Võ Tướng (Tây)
+  fillAreaChar(grid, 14, 43, 15, 43, 'Q', 'PALACE');
+  fillAreaChar(grid, 14, 45, 15, 45, 'Q', 'PALACE');
+  fillAreaChar(grid, 14, 50, 15, 50, 'Q', 'PALACE');
+  fillAreaChar(grid, 14, 52, 15, 52, 'Q', 'PALACE');
 
-  // Các hàng Bia Phẩm Trật Quan Viên đứng chầu (Tả ban văn thần & Hữu ban võ tướng)
-  fillAreaChar(grid, 12, 27, 14, 27, 'Q', 'PALACE');
-  fillAreaChar(grid, 12, 29, 14, 29, 'Q', 'PALACE');
-  fillAreaChar(grid, 12, 34, 14, 34, 'Q', 'PALACE');
-  fillAreaChar(grid, 12, 36, 14, 36, 'Q', 'PALACE');
-
-  // Sông Kim Thủy nhân tạo
-  fillAreaChar(grid, 16, 12, 16, 51, '~', 'PALACE');
-
-  // 5 Cây Cầu Đá Kim Thủy lan can chạm rồng
-  [20, 26, 31, 32, 37, 43].forEach(col => {
-    fillAreaChar(grid, 16, col, 16, col, '=', 'PALACE');
+  // Sông Kim Thủy nhân tạo & 5 Cây Cầu Đá Cẩm Thạch Chạm Rồng
+  fillAreaChar(grid, 17, 16, 17, 79, '~', 'PALACE');
+  [28, 38, 46, 47, 48, 49, 57, 67].forEach(col => {
+    fillAreaChar(grid, 17, col, 17, col, '=', 'PALACE');
   });
 
-  // Phủ đệ Nội các đại thần viền hai bên
-  fillAreaChar(grid, 10, 9, 15, 14, 'C', 'PALACE');
-  fillAreaChar(grid, 10, 49, 15, 54, 'C', 'PALACE');
+  // Phủ Đệ Nội Các Đại Thần 2 bên Cấm Cung
+  fillAreaChar(grid, 10, 16, 15, 24, 'C', 'PALACE');
+  fillAreaChar(grid, 10, 71, 15, 79, 'C', 'PALACE');
+
+  // Cổng Ngọ Môn (Lầu Ngũ Phụng & Cấm Vệ - Hàng 18..21)
+  stampPrefab(grid, 18, 36, PREFAB_NGO_MON_GATE, 'PALACE');
 
 
   // =========================================================================
-  // PHÂN KHU 3: KHU PHỦ HUYỆN ĐƯỜNG & VĂN MIẾU (Rows 19..32)
+  // TẦNG 2: HOÀNG THÀNH VÙNG ĐỆM (Rows 22..27)
+  // Tả Tổ Hữu Xã (Thái Miếu - Đông, Xã Tắc Đàn - Tây) & Cổng Thiên An Môn
   // =========================================================================
-  // Tường thành ngăn cách & Cổng nội phủ
-  fillAreaChar(grid, 32, 8, 32, 55, 'W', 'YAMEN');
-  fillAreaChar(grid, 32, 31, 32, 32, 'G', 'YAMEN');
+  fillAreaChar(grid, 27, 8, 27, 87, 'P', 'IMPERIAL_CITY');
+  fillAreaChar(grid, 22, 8, 27, 8, 'P', 'IMPERIAL_CITY');
+  fillAreaChar(grid, 22, 87, 27, 87, 'P', 'IMPERIAL_CITY');
+  // Cổng Thiên An Môn
+  fillAreaChar(grid, 27, 46, 27, 49, 'G', 'IMPERIAL_CITY');
 
-  // Nha Môn Huyện Đường (Prefab)
-  stampPrefab(grid, 22, 12, PREFAB_YAMEN_COMPLEX, 'YAMEN');
-
-  // Trường Thi & Văn Miếu (Prefab)
-  stampPrefab(grid, 22, 36, PREFAB_EXAM_ACADEMY, 'YAMEN');
-
-
-  // =========================================================================
-  // PHÂN KHU 2: PHỐ CHỢ GIAO THƯƠNG & DÂN CƯ ĐÔ THÀNH (Rows 33..48)
-  // =========================================================================
-  // Tường Thành Nam Đô & Cổng Chu Tước
-  fillAreaChar(grid, 48, 4, 48, 59, 'W', 'MARKET');
-  fillAreaChar(grid, 48, 31, 48, 32, 'G', 'MARKET');
-
-  // Đại Lộ Chợ Đông Tây
-  fillAreaChar(grid, 40, 8, 41, 55, '.', 'MARKET');
-
-  // Dãy Sạp Buôn Chợ Lớn (Prefab)
-  stampPrefab(grid, 39, 20, PREFAB_MARKET_ROW, 'MARKET');
-
-  // Long Môn Tiêu Cục
-  fillAreaChar(grid, 37, 18, 37, 18, 'V', 'MARKET');
-
-  // Học Quán Sĩ Tử (Lý Thư Sinh)
-  fillAreaChar(grid, 36, 45, 36, 45, '2', 'MARKET');
-
-  // Trà Quán Phong Nguyệt (Hoa Chưởng Quỹ)
-  fillAreaChar(grid, 39, 47, 39, 47, '3', 'MARKET');
-
-  // Khu Dân Cư Phố Phường (Tái sử dụng PREFAB_RESIDENTIAL_A 4 lần ở 4 góc)
-  stampPrefab(grid, 34, 9, PREFAB_RESIDENTIAL_A, 'MARKET');
-  stampPrefab(grid, 43, 9, PREFAB_RESIDENTIAL_A, 'MARKET');
-  stampPrefab(grid, 34, 48, PREFAB_RESIDENTIAL_A, 'MARKET');
-  stampPrefab(grid, 43, 48, PREFAB_RESIDENTIAL_A, 'MARKET');
+  // Thái Miếu (Tả - Phía Đông: Cột 60)
+  stampPrefab(grid, 22, 60, PREFAB_THAI_MIEU, 'IMPERIAL_CITY');
+  // Xã Tắc Đàn (Hữu - Phía Tây: Cột 24)
+  stampPrefab(grid, 22, 24, PREFAB_XA_TAC_DAN, 'IMPERIAL_CITY');
 
 
   // =========================================================================
-  // PHÂN KHU 1: NGOẠI THÀNH & THÔN TRANG ĐIỀN VIÊN (Rows 49..63)
+  // TẦNG 3: NỘI THÀNH (ĐÔNG PHÚ - TÂY QUÝ & LỤC BỘ NHA MÔN) (Rows 28..53)
   // =========================================================================
-  // Dòng Sông Lạc Thủy & Cầu Thiên Lý
-  fillAreaChar(grid, 52, 1, 52, 62, '~', 'SUBURB');
-  fillAreaChar(grid, 52, 31, 52, 32, '-', 'SUBURB');
+  // Đại Tường Thành Đá Xám Nội Thành & Hào Hộ Thành
+  fillAreaChar(grid, 53, 6, 53, 89, 'W', 'INNER_CITY');
+  fillAreaChar(grid, 28, 6, 53, 6, 'W', 'INNER_CITY');
+  fillAreaChar(grid, 28, 89, 53, 89, 'W', 'INNER_CITY');
 
-  // Lối Nhỏ Điền Trang
-  fillAreaChar(grid, 57, 16, 57, 31, ',', 'SUBURB');
+  // Hào Hộ Thành Nội Thành
+  fillAreaChar(grid, 52, 8, 52, 87, '~', 'INNER_CITY');
+  // Cầu đá qua hào hộ thành
+  fillAreaChar(grid, 52, 46, 52, 49, '=', 'INNER_CITY');
 
-  // Cụm Nhà Tranh Tiêu Diệp, Lão Nông Ba & 16 Ô Ruộng Củ Cải (Prefab)
-  stampPrefab(grid, 56, 18, PREFAB_FARM_HOMESTEAD, 'SUBURB');
+  // 1. TRỤC ĐẠI QUẦN THỂ LỤC BỘ NHA MÔN TRIỀU ĐÌNH (Rows 30..37)
+  // Tây: Lại Bộ & Binh Bộ (Cột 24)
+  stampPrefab(grid, 30, 24, PREFAB_SIX_MINISTRIES_WEST, 'INNER_CITY');
+  // Đông: Hộ Bộ & Hình Bộ (Cột 52)
+  stampPrefab(grid, 30, 52, PREFAB_SIX_MINISTRIES_EAST, 'INNER_CITY');
 
-  // Rừng Thông Cổ Thụ & Bãi Củi Khô Tây Nam
-  for (let r = 54; r <= 62; r++) {
-    for (let c = 2; c <= 12; c++) {
+  // 2. "TÂY QUÝ": CỐ THÂN VƯƠNG PHỦ & TƯỚNG QUÂN PHỦ (Phía Tây Nội Thành)
+  stampPrefab(grid, 30, 8, PREFAB_ROYAL_MANSION, 'INNER_CITY');
+  stampPrefab(grid, 40, 24, PREFAB_GENERAL_MANSION, 'INNER_CITY');
+  stampPrefab(grid, 40, 8, PREFAB_YAMEN_COMPLEX, 'INNER_CITY');
+
+  // 3. "ĐÔNG PHÚ": THƯỢNG THƯ PHỦ, HÀN LÂM VIỆN & KHẢO THÍ VIỆN (Phía Đông Nội Thành)
+  stampPrefab(grid, 30, 72, PREFAB_MINISTER_MANSION, 'INNER_CITY');
+  stampPrefab(grid, 40, 56, PREFAB_HAN_LIN_ACADEMY, 'INNER_CITY');
+  stampPrefab(grid, 40, 72, PREFAB_EXAM_ACADEMY, 'INNER_CITY');
+
+  // Cổng Chính Dương Môn (Tiền Môn) đồ sộ với lính gác (Hàng 50..53)
+  stampPrefab(grid, 50, 36, PREFAB_INNER_GATE_COMPLEX, 'INNER_CITY');
+
+
+  // =========================================================================
+  // TẦNG 4: NGOẠI THÀNH (THƯƠNG NGHIỆP SẦM UẤT & TỨ HỢP VIỆN BẠT NGÀN) (Rows 54..79)
+  // =========================================================================
+  // Tường Thành Ngoại & Cổng Vĩnh Định Môn (Phía Nam)
+  fillAreaChar(grid, 79, 4, 79, 91, 'W', 'OUTER_CITY');
+  fillAreaChar(grid, 54, 4, 79, 4, 'W', 'OUTER_CITY');
+  fillAreaChar(grid, 54, 91, 79, 91, 'W', 'OUTER_CITY');
+
+  // 1. THÁI BẠCH TỬU LÂU ĐẠI VIỆN (Lầu rượu hoành tráng - Row 54, Col 26)
+  stampPrefab(grid, 54, 26, PREFAB_TAVERN_DISTRICT, 'OUTER_CITY');
+
+  // 2. ĐẠI SÁCH LAN THƯƠNG NGHIỆP (Tiền Trang, Dược Điếm, Tơ Lụa, Lò Rèn - Row 54, Col 58)
+  stampPrefab(grid, 54, 58, PREFAB_COMMERCE_ROW, 'OUTER_CITY');
+
+  // Các đại lộ ngang kết nối phố phường ngoại thành (thông suốt không bị nhà che)
+  fillAreaChar(grid, 62, 6, 63, 89, '.', 'OUTER_CITY');
+  fillAreaChar(grid, 71, 6, 72, 89, '.', 'OUTER_CITY');
+
+  // 3. TIỀN MÔN ĐẠI NHAI: DÃY SẠP BUÔN CHỢ LỚN TRĂM MÓN (Row 65, Col 38)
+  stampPrefab(grid, 65, 38, PREFAB_MARKET_ROW, 'OUTER_CITY');
+
+  // 4. LƯU LY XƯỞNG (Phố Sĩ Tử & Trà Quán Phong Nguyệt - Row 65, Col 22)
+  stampPrefab(grid, 65, 22, PREFAB_SCHOLAR_STREET, 'OUTER_CITY');
+
+  // 5. BẠT NGÀN CÁC DÃY TỨ HỢP VIỆN SIHEYUAN & HỒ ĐỒNG DÂN CƯ TRIỆU DÂN
+  // Phía Tây Ngoại Thành:
+  stampPrefab(grid, 54, 10, PREFAB_SIHEYUAN_A, 'OUTER_CITY');
+  stampPrefab(grid, 64, 10, PREFAB_SIHEYUAN_B, 'OUTER_CITY');
+  stampPrefab(grid, 73, 8, PREFAB_RESIDENTIAL_BLOCK, 'OUTER_CITY');
+  stampPrefab(grid, 73, 23, PREFAB_SIHEYUAN_A, 'OUTER_CITY');
+
+  // Phía Đông Ngoại Thành:
+  stampPrefab(grid, 54, 74, PREFAB_SIHEYUAN_A, 'OUTER_CITY');
+  stampPrefab(grid, 64, 74, PREFAB_SIHEYUAN_B, 'OUTER_CITY');
+  stampPrefab(grid, 73, 60, PREFAB_SIHEYUAN_B, 'OUTER_CITY');
+  stampPrefab(grid, 73, 75, PREFAB_RESIDENTIAL_BLOCK, 'OUTER_CITY');
+
+  // Cổng Vĩnh Định Môn (Phía Nam Ngoại Thành - Hàng 76..79)
+  stampPrefab(grid, 76, 36, PREFAB_OUTER_GATE_COMPLEX, 'OUTER_CITY');
+
+
+  // =========================================================================
+  // TẦNG 5: VÙNG NGOẠI Ô & ĐIỀN TRANG ĐỒNG QUÊ (Rows 80..95)
+  // =========================================================================
+  // Dòng Sông Lạc Thủy & Cầu Gỗ Thiên Lý
+  fillAreaChar(grid, 82, 1, 82, 94, '~', 'SUBURB');
+  fillAreaChar(grid, 82, 46, 82, 49, '-', 'SUBURB');
+
+  // Lối Đi Đất Nối Điền Trang
+  fillAreaChar(grid, 86, 30, 86, 47, ',', 'SUBURB');
+
+  // Điền Trang Tiêu Diệp, Lão Nông Ba & 32 Ô Ruộng Củ Cải
+  stampPrefab(grid, 85, 30, PREFAB_FARM_HOMESTEAD, 'SUBURB');
+
+  // Rừng Thông Cổ Thụ & Bãi Củi Khô Tây Nam (Ngoại Ô)
+  for (let r = 84; r <= 94; r++) {
+    for (let c = 2; c <= 25; c++) {
       if ((r + c) % 2 === 0) {
         fillAreaChar(grid, r, c, r, c, 'T', 'SUBURB');
-      } else {
+      } else if ((r * c) % 5 === 0) {
         fillAreaChar(grid, r, c, r, c, 'X', 'SUBURB');
       }
     }
   }
 
-  // Bãi Thảo Dược Đông Nam
-  for (let r = 54; r <= 61; r++) {
-    for (let c = 42; c <= 61; c++) {
-      if ((r * 3 + c * 7) % 5 === 0) {
+  // Bãi Thảo Dược & Hoa Dại Đông Nam (Ngoại Ô)
+  for (let r = 84; r <= 94; r++) {
+    for (let c = 68; c <= 93; c++) {
+      if ((r * 3 + c * 7) % 4 === 0) {
         fillAreaChar(grid, r, c, r, c, 'F', 'SUBURB');
       }
     }
   }
+
+  // =========================================================================
+  // TRỤC ĐẠI LỘ THẦN ĐẠO XUYÊN SUỐT BẮC - NAM (BẢO ĐẢM 100% THÔNG SUỐT)
+  // =========================================================================
+  fillAreaChar(grid, 2, 47, 21, 48, 'M', 'PALACE');       // Cẩm thạch Hoàng Cung
+  fillAreaChar(grid, 22, 47, 27, 48, 'M', 'IMPERIAL_CITY'); // Cẩm thạch Hoàng Thành
+  fillAreaChar(grid, 28, 47, 53, 48, '.', 'INNER_CITY');  // Đá phiến Nội Thành
+  fillAreaChar(grid, 54, 47, 79, 48, '.', 'OUTER_CITY');  // Tiền Môn Đại Nhai Ngoại Thành
+  fillAreaChar(grid, 80, 47, 94, 48, ',', 'SUBURB');      // Đường đất Ngoại Ô
+
+  // Đảm bảo tất cả các cửa thành trên trục thần đạo là Cổng mở (không solid)
+  fillAreaChar(grid, 18, 47, 18, 48, 'N', 'PALACE'); // Cổng Ngọ Môn
+  fillAreaChar(grid, 21, 47, 21, 48, 'N', 'PALACE'); // Cổng Ngọ Môn Nam
+  fillAreaChar(grid, 27, 47, 27, 48, 'G', 'IMPERIAL_CITY'); // Cổng Thiên An Môn
+  fillAreaChar(grid, 50, 47, 50, 48, 'G', 'INNER_CITY'); // Cổng Chính Dương Môn Bắc
+  fillAreaChar(grid, 53, 47, 53, 48, 'G', 'INNER_CITY'); // Cổng Chính Dương Môn Nam
+  fillAreaChar(grid, 76, 47, 76, 48, 'G', 'OUTER_CITY'); // Cổng Vĩnh Định Môn Bắc
+  fillAreaChar(grid, 79, 47, 79, 48, 'G', 'OUTER_CITY'); // Cổng Vĩnh Định Môn Nam
 
   return grid;
 }
