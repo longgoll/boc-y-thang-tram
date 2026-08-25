@@ -85,7 +85,7 @@ export class VirtualMapRenderer {
             baseIcon = '🌱'; // Mới gieo hạt
             cellData.element.classList.add('farm-planted');
           } else {
-            baseIcon = '🟫'; // Đất trống
+            baseIcon = ''; // Đất trống (hiển thị bằng texture Pure CSS)
             cellData.element.classList.add('farm-empty');
           }
         }

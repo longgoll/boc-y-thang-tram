@@ -1,0 +1,130 @@
+/* =========================================================
+   ENTITIES & INTERACTIVE PROPS STYLING (BỐC Y THĂNG TRẦM)
+   Đổ bóng thực tế, vòng hào quang danh vị, và chuyển động nhịp thở
+   ========================================================= */
+
+/* --- 1. LỚP THỰC THỂ (PLAYER & NPC) --- */
+
+.tile-entity {
+  position: absolute;
+  z-index: 5;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+}
+
+/* Đổ bóng chân thực tế hình elip dưới chân nhân vật */
+.has-player .tile-entity::after,
+.has-npc .tile-entity::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 8px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.7) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Người chơi chính (Tiêu Diệp) */
+.has-player .tile-entity {
+  animation: playerBreathing 1.4s infinite ease-in-out alternate;
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+}
+
+/* Vòng hào quang bộc phát dưới chân người chơi */
+.has-player::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%);
+  animation: playerAuraPulse 2s infinite ease-in-out alternate;
+  z-index: 2;
+}
+
+/* NPC đứng nhịp thở tự nhiên */
+.has-npc .tile-entity {
+  animation: npcBreathing 2.2s infinite ease-in-out alternate;
+  filter: drop-shadow(0 0 6px rgba(229, 192, 123, 0.5)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+}
+
+/* --- 2. TRẠNG THÁI NÔNG SẢN & RUỘNG CỦ CẢI --- */
+
+.tile-icon {
+  position: absolute;
+  z-index: 3;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Củ cải đã chín tới kỳ thu hoạch */
+.farm-ready .tile-icon {
+  font-size: 28px;
+  animation: cropHarvestBounce 0.9s infinite alternate ease-in-out;
+  filter: drop-shadow(0 0 8px #facc15);
+}
+
+/* Ruộng vừa mới tưới nước */
+.farm-watered {
+  border-color: #38bdf8 !important;
+  box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.4) !important;
+}
+
+.farm-watered .tile-icon {
+  animation: sproutGently 1.8s infinite alternate ease-in-out;
+}
+
+/* Ruộng mới gieo hạt */
+.farm-planted .tile-icon {
+  opacity: 0.85;
+}
+
+/* --- 3. HIỆU ỨNG TƯƠNG TÁC KHI HOVER --- */
+
+.map-tile:hover {
+  filter: brightness(1.2);
+  transform: scale(1.04);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.map-tile:active {
+  transform: scale(0.96);
+}
+
+/* --- 4. KEYFRAME ANIMATIONS --- */
+
+@keyframes playerBreathing {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-4px) scale(1.04); }
+}
+
+@keyframes playerAuraPulse {
+  0% { transform: scale(0.8); opacity: 0.4; }
+  100% { transform: scale(1.2); opacity: 0.8; }
+}
+
+@keyframes npcBreathing {
+  0% { transform: translateY(0) scale(0.98); }
+  100% { transform: translateY(-2px) scale(1.02); }
+}
+
+@keyframes cropHarvestBounce {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-5px) scale(1.15); }
+}
+
+@keyframes sproutGently {
+  0% { transform: scale(0.95); }
+  100% { transform: scale(1.08); }
+}
